@@ -1,33 +1,48 @@
 import { useReducer } from "react";
 import { initialState, reducer } from "../utils/authReducer";
 import { Link } from "react-router-dom";
+import { useMutation } from "react-query";
 
 const API_URL = import.meta.env.VITE_API_URL;
+
+interface RegisterResponse {
+  status: string;
+}
+
+const registerRequest = async ({
+  username,
+  password,
+}: {
+  username: string;
+  password: string;
+}): Promise<RegisterResponse> => {
+  const response = await fetch(`${API_URL}/register`, {
+    method: "POST",
+    body: JSON.stringify({ username, password }),
+  });
+  if (!response.ok) throw new Error("Login failed");
+  return response.json();
+};
 
 const Register = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+  const { mutate } = useMutation(registerRequest, {
+    onSuccess: async () => {
+      dispatch({ type: "SET_STATUS", payload: "success" });
+    },
+    onError: () => {
+      dispatch({ type: "SET_STATUS", payload: "error" });
+    },
+    onSettled: () => {
+      dispatch({ type: "SET_LOADING", payload: false });
+    },
+  });
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     dispatch({ type: "SET_LOADING", payload: true });
-
-    const response = await fetch(`${API_URL}/register`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        username: state.username,
-        password: state.password,
-      }),
-    });
-
-    if (response.ok) {
-      dispatch({ type: "SET_STATUS", payload: "success" });
-    } else {
-      dispatch({ type: "SET_STATUS", payload: "error" });
-    }
-    dispatch({ type: "SET_LOADING", payload: false });
+    mutate({ username: state.username, password: state.password });
   };
 
   return (
