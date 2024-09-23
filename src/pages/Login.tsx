@@ -3,43 +3,51 @@ import { initialState, reducer } from "../utils/authReducer";
 import { useAuth } from "../auth/AuthContext";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { useMutation } from "react-query";
 
 const API_URL = import.meta.env.VITE_API_URL;
+
+interface LoginResponse {
+  token: string;
+}
+
+const loginRequest = async ({
+  username,
+  password,
+}: {
+  username: string;
+  password: string;
+}): Promise<LoginResponse> => {
+  const response = await fetch(`${API_URL}/login`, {
+    method: "POST",
+    body: JSON.stringify({ username, password }),
+  });
+  if (!response.ok) throw new Error("Login failed");
+  return response.json();
+};
 
 const Login = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const { login } = useAuth();
   const { t } = useTranslation();
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+  const { mutate } = useMutation(loginRequest, {
+    onSuccess: async (data) => {
+      await login(data.token);
+      dispatch({ type: "SET_STATUS", payload: "success" });
+    },
+    onError: () => {
+      dispatch({ type: "SET_STATUS", payload: "error" });
+    },
+    onSettled: () => {
+      dispatch({ type: "SET_LOADING", payload: false });
+    },
+  });
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     dispatch({ type: "SET_LOADING", payload: true });
-
-    try {
-      const response = await fetch(`${API_URL}/login`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          username: state.username,
-          password: state.password,
-        }),
-      });
-
-      if (response.ok) {
-        const { token } = await response.json();
-        await login(token);
-
-        dispatch({ type: "SET_STATUS", payload: "success" });
-      } else {
-        dispatch({ type: "SET_STATUS", payload: "error" });
-      }
-    } catch (error) {
-      dispatch({ type: "SET_STATUS", payload: "error" });
-    } finally {
-      dispatch({ type: "SET_LOADING", payload: false });
-    }
+    mutate({ username: state.username, password: state.password });
   };
 
   return (
