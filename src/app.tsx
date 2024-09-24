@@ -1,5 +1,5 @@
 import AppRoutes from "./router/AppRoutes";
-// import Navbar from "./components/Navbar";
+import Navbar from "./components/Navbar";
 import { AuthProvider } from "./auth/AuthContext";
 import { LocationProvider } from "./utils/Location";
 import { QueryClient, QueryClientProvider } from "react-query";
@@ -18,6 +18,7 @@ function App() {
       <AuthProvider>
         <QueryClientProvider client={queryClient}>
           <LocationProvider>
+            <Navbar />
             <AppRoutes />
           </LocationProvider>
         </QueryClientProvider>

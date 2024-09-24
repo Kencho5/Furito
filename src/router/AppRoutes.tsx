@@ -3,9 +3,8 @@ import { Routes, Route } from "react-router-dom";
 import TopBarProgress from "react-topbar-progress-indicator";
 // import ProtectedRoute from "../auth/AuthGuard";
 
-// import Home from "../pages/Home";
+import Home from "../pages/Home";
 import Login from "../pages/Login";
-import Construction from "../pages/Construction";
 
 // Lazy load components
 const Register = lazy(() => import("../pages/Register"));
@@ -21,7 +20,7 @@ const AppRoutes = () => {
   return (
     <Suspense fallback={<TopBarProgress />}>
       <Routes>
-        <Route path="/" element={<Construction />} />
+        <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="*" element={<NotFound />} />
