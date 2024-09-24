@@ -33,8 +33,8 @@ const Login = () => {
 
   const { mutate } = useMutation(loginRequest, {
     onSuccess: async (data) => {
-      await login(data.token);
-      dispatch({ type: "SET_STATUS", payload: "success" });
+      const status = await login(data.token);
+      dispatch({ type: "SET_STATUS", payload: status });
     },
     onError: () => {
       dispatch({ type: "SET_STATUS", payload: "error" });
