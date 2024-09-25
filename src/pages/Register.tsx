@@ -24,7 +24,7 @@ const registerRequest = async ({
   return response.json();
 };
 
-const Register = () => {
+export const Register = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const { mutate } = useMutation(registerRequest, {
@@ -132,5 +132,3 @@ const Register = () => {
     </div>
   );
 };
-
-export default Register;
