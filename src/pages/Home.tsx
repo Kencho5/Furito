@@ -2,7 +2,7 @@ import { useAuth } from "../auth/AuthContext";
 import { useTranslation } from "react-i18next";
 import { Combobox } from "../components/Combobox";
 
-const Home = () => {
+export const Home = () => {
   const { loggedIn } = useAuth();
   const { t } = useTranslation();
 
@@ -21,5 +21,3 @@ const Home = () => {
     </div>
   );
 };
-
-export default Home;

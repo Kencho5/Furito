@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-const NotFound = () => {
+export const NotFound = () => {
   return (
     <div className="mt-32 flex items-center justify-center">
       <div className="text-center">
@@ -21,5 +21,3 @@ const NotFound = () => {
     </div>
   );
 };
-
-export default NotFound;

@@ -26,7 +26,7 @@ const loginRequest = async ({
   return response.json();
 };
 
-const Login = () => {
+export const Login = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const { login } = useAuth();
   const { t } = useTranslation();
