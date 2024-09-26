@@ -7,23 +7,26 @@ import { useMutation } from "react-query";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
-interface LoginResponse {
-  token: string;
+interface LoginRequest {
+  email: string;
+  password: string;
 }
 
-const loginRequest = async ({
-  username,
-  password,
-}: {
-  username: string;
-  password: string;
-}): Promise<LoginResponse> => {
+const loginRequest = async ({ email, password }: LoginRequest) => {
   const response = await fetch(`${API_URL}/login`, {
     method: "POST",
-    body: JSON.stringify({ username, password }),
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ email, password }),
   });
-  if (!response.ok) throw new Error("Login failed");
-  return response.json();
+
+  if (!response.ok) {
+    const data = await response.json();
+    throw new Error(data.error);
+  }
+
+  return (await response.json()).token;
 };
 
 export const Login = () => {
@@ -32,12 +35,13 @@ export const Login = () => {
   const { t } = useTranslation();
 
   const { mutate } = useMutation(loginRequest, {
-    onSuccess: async (data) => {
-      const status = await login(data.token);
+    onSuccess: async (token) => {
+      const status = await login(token);
       dispatch({ type: "SET_STATUS", payload: status });
     },
-    onError: () => {
+    onError: (error: Error) => {
       dispatch({ type: "SET_STATUS", payload: "error" });
+      dispatch({ type: "SET_MESSAGE", payload: error.message });
     },
     onSettled: () => {
       dispatch({ type: "SET_LOADING", payload: false });
@@ -47,7 +51,7 @@ export const Login = () => {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     dispatch({ type: "SET_LOADING", payload: true });
-    mutate({ username: state.username, password: state.password });
+    mutate({ email: state.email, password: state.password });
   };
 
   return (
@@ -59,23 +63,23 @@ export const Login = () => {
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
             <label
-              htmlFor="username"
+              htmlFor="email"
               className="block text-sm font-medium text-gray-700"
             >
-              Username
+              email
             </label>
             <input
-              id="username"
+              id="email"
               type="text"
-              value={state.username}
+              value={state.email}
               onChange={(e) =>
                 dispatch({
-                  type: "SET_USERNAME",
+                  type: "SET_EMAIL",
                   payload: e.target.value,
                 })
               }
               className="mt-2 w-full rounded-lg border border-gray-300 px-4 py-3 shadow-sm transition duration-200 ease-in-out focus:border-teal-500 focus:outline-none focus:ring-2 focus:ring-teal-500 sm:text-sm"
-              placeholder="Enter your username"
+              placeholder="Enter your email"
             />
           </div>
           <div>
@@ -102,7 +106,7 @@ export const Login = () => {
 
           {state.status === "error" && (
             <div className="mb-4 rounded-md bg-red-100 p-4 text-red-600">
-              <p>Incorrect login information.</p>
+              <p>{state.message}</p>
             </div>
           )}
 

@@ -10,15 +10,15 @@ interface RegisterResponse {
 }
 
 const registerRequest = async ({
-  username,
+  email,
   password,
 }: {
-  username: string;
+  email: string;
   password: string;
 }): Promise<RegisterResponse> => {
   const response = await fetch(`${API_URL}/register`, {
     method: "POST",
-    body: JSON.stringify({ username, password }),
+    body: JSON.stringify({ email, password }),
   });
   if (!response.ok) throw new Error("Login failed");
   return response.json();
@@ -42,7 +42,7 @@ export const Register = () => {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     dispatch({ type: "SET_LOADING", payload: true });
-    mutate({ username: state.username, password: state.password });
+    mutate({ email: state.email, password: state.password });
   };
 
   return (
@@ -54,23 +54,23 @@ export const Register = () => {
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
             <label
-              htmlFor="username"
+              htmlFor="email"
               className="block text-sm font-medium text-gray-700"
             >
-              Username
+              email
             </label>
             <input
-              id="username"
+              id="email"
               type="text"
-              value={state.username}
+              value={state.email}
               onChange={(e) =>
                 dispatch({
-                  type: "SET_USERNAME",
+                  type: "SET_EMAIL",
                   payload: e.target.value,
                 })
               }
               className="mt-2 w-full rounded-lg border border-gray-300 px-4 py-3 shadow-sm transition duration-200 ease-in-out focus:border-teal-500 focus:outline-none focus:ring-2 focus:ring-teal-500 sm:text-sm"
-              placeholder="Enter your username"
+              placeholder="Enter your email"
             />
           </div>
           <div>
@@ -97,7 +97,7 @@ export const Register = () => {
 
           {state.status === "error" && (
             <div className="mb-4 rounded-md bg-red-100 p-4 text-red-600">
-              <p>Username taken.</p>
+              <p>email taken.</p>
             </div>
           )}
 
