@@ -2,37 +2,42 @@ import { useReducer } from "react";
 import { initialState, reducer } from "../utils/authReducer";
 import { Link } from "react-router-dom";
 import { useMutation } from "react-query";
+import { useNavigate } from "react-router-dom";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
-interface RegisterResponse {
-  status: string;
-}
-
-const registerRequest = async ({
-  email,
-  password,
-}: {
+interface RegisterRequest {
   email: string;
   password: string;
-}): Promise<RegisterResponse> => {
+}
+
+const registerRequest = async ({ email, password }: RegisterRequest) => {
   const response = await fetch(`${API_URL}/register`, {
     method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
     body: JSON.stringify({ email, password }),
   });
-  if (!response.ok) throw new Error("Login failed");
-  return response.json();
+
+  if (!response.ok) {
+    const data = await response.json();
+    throw new Error(data.error);
+  }
 };
 
 export const Register = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
+  const navigate = useNavigate();
 
   const { mutate } = useMutation(registerRequest, {
     onSuccess: async () => {
       dispatch({ type: "SET_STATUS", payload: "success" });
+      navigate("/login");
     },
-    onError: () => {
+    onError: (error: Error) => {
       dispatch({ type: "SET_STATUS", payload: "error" });
+      dispatch({ type: "SET_MESSAGE", payload: error.message });
     },
     onSettled: () => {
       dispatch({ type: "SET_LOADING", payload: false });
@@ -97,7 +102,7 @@ export const Register = () => {
 
           {state.status === "error" && (
             <div className="mb-4 rounded-md bg-red-100 p-4 text-red-600">
-              <p>email taken.</p>
+              <p>{state.message}</p>
             </div>
           )}
 
