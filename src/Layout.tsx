@@ -1,4 +1,5 @@
 import Navbar from "./components/Navbar";
+import Spinner from "./components/Spinner";
 import { AuthProvider } from "./auth/AuthContext";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { Outlet } from "react-router-dom";
@@ -17,7 +18,9 @@ function Layout() {
     <AuthProvider>
       <QueryClientProvider client={queryClient}>
         <Navbar />
-        <Outlet />
+        <Suspense fallback={<Spinner />}>
+          <Outlet />
+        </Suspense>
       </QueryClientProvider>
     </AuthProvider>
   );
