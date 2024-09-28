@@ -1,10 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import Layout from "../Layout";
 
-import { lazy } from "react";
-
 import Login from "../pages/Login";
-const Register = lazy(() => import("../pages/Register"));
 
 export const router = createBrowserRouter([
   {
@@ -24,7 +21,10 @@ export const router = createBrowserRouter([
       },
       {
         path: "register",
-        element: <Register />,
+        lazy: async () => {
+          const { Register } = await import("../pages/Register");
+          return { Component: Register };
+        },
       },
       {
         path: "*",

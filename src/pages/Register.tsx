@@ -26,7 +26,7 @@ const registerRequest = async ({ email, password }: RegisterRequest) => {
   }
 };
 
-const Register = () => {
+export const Register = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const navigate = useNavigate();
 
@@ -137,5 +137,3 @@ const Register = () => {
     </div>
   );
 };
-
-export default Register;
