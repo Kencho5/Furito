@@ -1,8 +1,8 @@
 import Navbar from "./components/Navbar";
 import { AuthProvider } from "./auth/AuthContext";
-import { LocationProvider } from "./utils/Location";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { Outlet } from "react-router-dom";
+import { Suspense } from "react";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -12,19 +12,15 @@ const queryClient = new QueryClient({
   },
 });
 
-function App() {
+function Layout() {
   return (
-    <div>
-      <AuthProvider>
-        <QueryClientProvider client={queryClient}>
-          <LocationProvider>
-            <Navbar />
-            <Outlet />
-          </LocationProvider>
-        </QueryClientProvider>
-      </AuthProvider>
-    </div>
+    <AuthProvider>
+      <QueryClientProvider client={queryClient}>
+        <Navbar />
+        <Outlet />
+      </QueryClientProvider>
+    </AuthProvider>
   );
 }
 
-export default App;
+export default Layout;
