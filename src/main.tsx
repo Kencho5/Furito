@@ -11,6 +11,7 @@ TopBarProgress.config({
     "0": "#fff",
     "1.0": "#fff",
   },
+  shadowBlur: 0,
 });
 
 createRoot(document.getElementById("root")!).render(

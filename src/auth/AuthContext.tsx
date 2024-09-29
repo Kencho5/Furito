@@ -16,6 +16,7 @@ export const useAuth = create<AuthState>((set) => ({
     const token = localStorage.getItem("token");
     if (!token) return false;
     const decoded: any = jwtDecode(token);
+    console.log(decoded);
     const now = Date.now() / 1000;
     return parseInt(decoded.exp, 10) > now;
   },
