@@ -10,7 +10,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-gradient-to-r from-stone-800 to-stone-900 shadow-lg">
+    <nav className="bg-stone-800">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
           <div className="flex">
@@ -19,7 +19,7 @@ const Navbar = () => {
                 to="/"
                 className="text-2xl font-bold tracking-tight text-white"
               >
-                Furito
+                <img src="/logo.svg" alt="" width={130} height={36} />
               </NavLink>
             </div>
           </div>
