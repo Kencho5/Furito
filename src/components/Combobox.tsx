@@ -44,8 +44,8 @@ export function Combobox() {
           <LuChevronsUpDown size={18} className="ml-2 opacity-50" />
         </button>
         {open && (
-          <div className="absolute z-10 mt-2 w-full rounded-lg border border-stone-300 bg-white shadow-lg">
-            <div className="flex items-center justify-between border-b border-stone-300">
+          <div className="absolute z-10 mt-2 w-full rounded-lg border border-neutral-300 bg-white shadow-lg">
+            <div className="flex items-center justify-between border-b border-neutral-300">
               <div className="py-2">
                 <FiSearch size={18} className="ml-3" />
               </div>
@@ -74,7 +74,7 @@ export function Combobox() {
                   <button
                     key={country.value}
                     ref={value === country.value ? selectedRef : null}
-                    className={`mx-auto flex w-full items-center rounded-md px-2 py-2 text-center transition-colors hover:bg-stone-100 ${value === country.value ? "bg-stone-100" : ""}`}
+                    className={`mx-auto flex w-full items-center rounded-md px-2 py-2 text-center transition-colors hover:bg-neutral-100 ${value === country.value ? "bg-neutral-100" : ""}`}
                     onClick={() => {
                       setValue(value === country.value ? "" : country.value);
                       setOpen(false);
