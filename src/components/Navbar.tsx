@@ -17,21 +17,35 @@ const Navbar = () => {
   const { t } = useTranslation();
 
   return (
-    <nav className="flex h-20 items-center border-b border-neutral-200 bg-neutral-100">
-      <div className="container mx-auto flex items-center justify-between">
+    <nav className="flex h-[72px] items-center border-b border-neutral-200 bg-neutral-100 sm:h-20">
+      <div className="container mx-auto flex items-center justify-between px-6 sm:px-4 lg:px-0">
         <Link to="">
-          <img src="/logo.svg" alt="Logo" width={135} height={30} />
+          <img
+            src="/logo.svg"
+            alt="Logo"
+            width={135}
+            height={30}
+            className="hidden sm:block"
+          />
+          <img
+            src="/logo_min.svg"
+            alt="Logo"
+            width={45}
+            height={30}
+            className="min-w-[45px] sm:hidden"
+            loading="lazy"
+          />
         </Link>
 
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-5">
           <Link
             to="upload"
-            className="flex items-center justify-center gap-2 rounded-2xl border-2 border-orange-500 bg-white px-3 py-2.5 text-sm font-bold text-orange-500"
+            className="hidden items-center justify-center gap-2 rounded-2xl border-2 border-orange-500 bg-white px-3 py-2.5 text-sm font-bold text-orange-500 sm:flex"
           >
             <FaCirclePlus size={20} />
             {t("NAV.upload")}
           </Link>
-          <div className="h-6 w-px bg-neutral-300"></div>
+          <div className="hidden h-6 w-px bg-neutral-300 sm:flex"></div>
           <button>
             <GoHeart color="#888888" size={22} strokeWidth={1} />
           </button>

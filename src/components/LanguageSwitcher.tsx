@@ -21,7 +21,7 @@ function LanguageSwitcher() {
 
   return (
     <OutsideClickHandler onOutsideClick={() => setIsOpen(false)}>
-      <div className="relative inline-block text-left">
+      <div className="relative inline-block text-left font-normal">
         <button
           type="button"
           onClick={() => setIsOpen(!isOpen)}
@@ -32,7 +32,7 @@ function LanguageSwitcher() {
         </button>
         {isOpen && (
           <div className="absolute right-0 mt-4 w-36 origin-top-right rounded-xl bg-white shadow-md">
-            <div className="p-2">
+            <div className="p-2 font-normal">
               <button
                 onClick={() => changeLanguage("en")}
                 className="block w-full rounded-lg px-4 py-2 text-left transition hover:bg-neutral-100"
