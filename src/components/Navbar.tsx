@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-//import { useAuth } from "../auth/AuthContext";
+import { useAuth } from "../auth/AuthContext";
 import LanguageSwitcher from "./LanguageSwitcher";
 import { useTranslation } from "react-i18next";
 
@@ -9,11 +9,11 @@ import { FiShoppingCart } from "react-icons/fi";
 import { CgProfile } from "react-icons/cg";
 
 const Navbar = () => {
-  //const { loggedIn, logout } = useAuth();
-  //
+  const { loggedIn } = useAuth();
   //const handleLogout = async () => {
   //  await logout();
   //};
+
   const { t } = useTranslation();
 
   return (
@@ -46,15 +46,24 @@ const Navbar = () => {
             {t("NAV.upload")}
           </Link>
           <div className="hidden h-6 w-px bg-neutral-300 sm:flex"></div>
-          <button>
-            <GoHeart color="#888888" size={22} strokeWidth={1} />
-          </button>
-          <button>
-            <FiShoppingCart color="#888888" size={22} strokeWidth={2.5} />
-          </button>
-          <button>
-            <CgProfile color="#888888" size={22} strokeWidth={0.5} />
-          </button>
+
+          {loggedIn ? (
+            <>
+              <button>
+                <GoHeart color="#888888" size={22} strokeWidth={1} />
+              </button>
+              <button>
+                <FiShoppingCart color="#888888" size={22} strokeWidth={2.5} />
+              </button>
+              <button>
+                <CgProfile color="#888888" size={22} strokeWidth={0.5} />
+              </button>
+            </>
+          ) : (
+            <Link to="login" className="rounded-2xl bg-yellow-400 px-4 py-2.5">
+              {t("NAV.login")}
+            </Link>
+          )}
 
           <LanguageSwitcher />
         </div>

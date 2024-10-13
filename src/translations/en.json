@@ -11,7 +11,8 @@
     "not_found": "No country found."
   },
   "NAV": {
-    "upload": "Upload"
+    "upload": "Upload",
+    "login": "Login"
   },
 
   "COUNTRIES": {
