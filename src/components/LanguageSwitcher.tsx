@@ -25,7 +25,7 @@ function LanguageSwitcher() {
         <button
           type="button"
           onClick={() => setIsOpen(!isOpen)}
-          className="flex items-center gap-0.5 text-base"
+          className="flex items-center gap-0.5"
         >
           {lang === "en" ? "Eng" : "ქარ"}
           <IoIosArrowDown size={20} />

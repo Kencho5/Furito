@@ -23,10 +23,10 @@ const Navbar = () => {
           <img src="/logo.svg" alt="Logo" width={135} height={30} />
         </Link>
 
-        <div className="flex items-center gap-4 text-sm">
+        <div className="flex items-center gap-4">
           <Link
             to="upload"
-            className="flex items-center justify-center gap-2 rounded-2xl border-2 border-orange-500 bg-white px-3 py-2.5 font-bold text-orange-500"
+            className="flex items-center justify-center gap-2 rounded-2xl border-2 border-orange-500 bg-white px-3 py-2.5 text-sm font-bold text-orange-500"
           >
             <FaCirclePlus size={20} />
             {t("NAV.upload")}
