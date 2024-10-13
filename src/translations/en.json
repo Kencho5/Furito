@@ -10,6 +10,9 @@
     "search": "Search your country",
     "not_found": "No country found."
   },
+  "NAV": {
+    "upload": "Upload"
+  },
 
   "COUNTRIES": {
     "china": "China",
