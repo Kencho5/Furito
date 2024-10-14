@@ -2,8 +2,8 @@ import Navbar from "./components/Navbar";
 import { AuthProvider } from "./auth/AuthContext";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { Outlet } from "react-router-dom";
-//import { useNavigation } from "react-router-dom";
-//import TopBarProgress from "react-topbar-progress-indicator";
+import { useNavigation } from "react-router-dom";
+import TopBarProgress from "react-topbar-progress-indicator";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -14,14 +14,14 @@ const queryClient = new QueryClient({
 });
 
 function Layout() {
-  //const navigation = useNavigation();
+  const navigation = useNavigation();
 
   return (
     <AuthProvider>
       <QueryClientProvider client={queryClient}>
         <div>
           <Navbar />
-          {/* navigation.state == "loading" && <TopBarProgress /> */}
+          {navigation.state == "loading" && <TopBarProgress />}
           <Outlet />
         </div>
       </QueryClientProvider>

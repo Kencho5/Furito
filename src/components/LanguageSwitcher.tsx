@@ -31,7 +31,7 @@ function LanguageSwitcher() {
           <IoIosArrowDown size={20} />
         </button>
         {isOpen && (
-          <div className="absolute right-0 mt-4 w-36 origin-top-right rounded-xl bg-white shadow-md">
+          <div className="absolute right-0 mt-6 w-36 origin-top-right rounded-xl bg-white shadow-md">
             <div className="p-2 font-normal">
               <button
                 onClick={() => changeLanguage("en")}

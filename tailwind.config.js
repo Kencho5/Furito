@@ -90,6 +90,16 @@ export default {
       white: "#ffffff",
     },
 
+    //boxShadow: {
+    //  xs: "box-shadow: 0px 1px 2px 0px #1018280D",
+    //  sm: "box-shadow: 0px 1px 2px 0px #1018280F;box-shadow: 0px 1px 3px 0px #1018281A;",
+    //  md: "0 35px 60px -15px rgba(0, 0, 0, 0.3)",
+    //  lg: "0 35px 60px -15px rgba(0, 0, 0, 0.3)",
+    //  xl: "0 35px 60px -15px rgba(0, 0, 0, 0.3)",
+    //  "2xl": "0 35px 60px -15px rgba(0, 0, 0, 0.3)",
+    //  "3xl": "0 35px 60px -15px rgba(0, 0, 0, 0.3)",
+    //},
+
     extend: {},
   },
   plugins: [],

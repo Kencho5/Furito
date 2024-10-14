@@ -4,15 +4,16 @@ import { RouterProvider } from "react-router-dom";
 import "./index.css";
 import "./i18n";
 import { router } from "./router/Router";
-//import TopBarProgress from "react-topbar-progress-indicator";
+import TopBarProgress from "react-topbar-progress-indicator";
 
-//TopBarProgress.config({
-//  barColors: {
-//    "0": "#fff",
-//    "1.0": "#fff",
-//  },
-//  shadowBlur: 0,
-//});
+TopBarProgress.config({
+  barColors: {
+    "0": "#EB9D2A",
+    "1.0": "#E5811B",
+  },
+  shadowBlur: 0,
+  barThickness: 5,
+});
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
