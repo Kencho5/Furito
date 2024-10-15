@@ -24,14 +24,14 @@ const Navbar = () => {
             src="/logo.svg"
             alt="Logo"
             width={135}
-            height={30}
+            height={31}
             className="hidden sm:block"
           />
           <img
             src="/logo_min.svg"
             alt="Logo"
             width={45}
-            height={30}
+            height={31}
             className="min-w-[45px] sm:hidden"
             loading="lazy"
           />
