@@ -3,6 +3,7 @@ import { useState } from "react";
 import OutsideClickHandler from "../utils/OutsideClick";
 
 import { IoIosArrowDown } from "react-icons/io";
+import { MdOutlineLanguage } from "react-icons/md";
 
 function LanguageSwitcher() {
   const { i18n } = useTranslation();
@@ -25,10 +26,13 @@ function LanguageSwitcher() {
         <button
           type="button"
           onClick={() => setIsOpen(!isOpen)}
-          className="flex items-center gap-0.5"
+          className="flex h-11 items-center rounded-2xl border border-neutral-300 px-3 py-2.5 text-neutral-400"
         >
-          {lang === "en" ? "Eng" : "ქარ"}
-          <IoIosArrowDown size={20} />
+          <MdOutlineLanguage color="#888888" size={20} className="mr-1.5" />
+          <span className="mr-0.5 text-sm font-semibold">
+            {lang === "en" ? "Eng" : "ქარ"}
+          </span>
+          <IoIosArrowDown color="#888888" size={20} />
         </button>
         {isOpen && (
           <div className="absolute right-0 mt-6 w-36 origin-top-right rounded-xl bg-white shadow-md">

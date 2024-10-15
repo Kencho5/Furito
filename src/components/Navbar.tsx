@@ -60,7 +60,10 @@ const Navbar = () => {
               </button>
             </>
           ) : (
-            <Link to="login" className="rounded-2xl bg-yellow-400 px-4 py-2.5">
+            <Link
+              to="login"
+              className="flex h-11 items-center justify-center rounded-2xl bg-yellow-400 px-4 text-sm font-semibold"
+            >
               {t("NAV.login")}
             </Link>
           )}
