@@ -1,24 +1,28 @@
 import { useTranslation } from "react-i18next";
 import { useState } from "react";
 import OutsideClickHandler from "../utils/OutsideClick";
-
 import { IoIosArrowDown } from "react-icons/io";
 import { MdOutlineLanguage } from "react-icons/md";
+import { FaCheck } from "react-icons/fa6";
 
 function LanguageSwitcher() {
   const { i18n } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
-
   const [lang, setLang] = useState(
     localStorage.getItem("language") || i18n.language,
   );
 
-  const changeLanguage = (lang: string) => {
-    i18n.changeLanguage(lang);
-    setLang(lang);
-    localStorage.setItem("language", lang);
+  const changeLanguage = (selectedLang: string) => {
+    i18n.changeLanguage(selectedLang);
+    setLang(selectedLang);
+    localStorage.setItem("language", selectedLang);
     setIsOpen(false);
   };
+
+  const languages = [
+    { code: "ge", label: "ქართული" },
+    { code: "en", label: "English" },
+  ];
 
   return (
     <OutsideClickHandler onOutsideClick={() => setIsOpen(false)}>
@@ -35,20 +39,20 @@ function LanguageSwitcher() {
           <IoIosArrowDown color="#888888" size={20} />
         </button>
         {isOpen && (
-          <div className="absolute right-0 mt-6 w-36 origin-top-right rounded-xl bg-white shadow-md">
-            <div className="p-2 font-normal">
-              <button
-                onClick={() => changeLanguage("en")}
-                className="block w-full rounded-lg px-4 py-2 text-left transition hover:bg-neutral-100"
-              >
-                English
-              </button>
-              <button
-                onClick={() => changeLanguage("ge")}
-                className="block w-full rounded-lg px-4 py-2 text-left transition hover:bg-neutral-100"
-              >
-                ქართული
-              </button>
+          <div className="absolute right-0 mt-6 w-72 origin-top-right rounded-2xl bg-white shadow-md">
+            <div className="space-y-2.5 p-2.5 font-normal">
+              {languages.map(({ code, label }) => (
+                <button
+                  key={code}
+                  onClick={() => changeLanguage(code)}
+                  className={`flex w-full items-center justify-between rounded-lg p-2.5 text-left transition hover:bg-neutral-100 ${
+                    lang === code ? "bg-neutral-100 font-medium" : ""
+                  }`}
+                >
+                  {label}
+                  {lang === code && <FaCheck color="#FD590D" />}
+                </button>
+              ))}
             </div>
           </div>
         )}
