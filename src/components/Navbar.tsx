@@ -62,7 +62,7 @@ const Navbar = () => {
           ) : (
             <Link
               to="login"
-              className="flex h-11 items-center justify-center rounded-2xl bg-yellow-400 px-4 text-sm font-semibold"
+              className="flex h-10 items-center justify-center rounded-2xl bg-yellow-400 px-3.5 py-2.5 text-sm font-semibold sm:h-11 sm:px-5 sm:py-2.5"
             >
               {t("NAV.login")}
             </Link>

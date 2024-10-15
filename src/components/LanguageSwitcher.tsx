@@ -26,7 +26,7 @@ function LanguageSwitcher() {
         <button
           type="button"
           onClick={() => setIsOpen(!isOpen)}
-          className="flex h-11 items-center rounded-2xl border border-neutral-300 px-3 py-2.5 text-neutral-400"
+          className="flex h-10 items-center rounded-2xl border border-neutral-300 p-2.5 text-neutral-400 sm:h-11 sm:px-3 sm:py-2.5"
         >
           <MdOutlineLanguage color="#888888" size={20} className="mr-1.5" />
           <span className="mr-0.5 text-sm font-semibold">
