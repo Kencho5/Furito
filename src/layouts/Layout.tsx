@@ -1,5 +1,5 @@
-import Navbar from "./components/Navbar";
-import { AuthProvider } from "./auth/AuthContext";
+import Navbar from "../components/navbar/Navbar";
+import { AuthProvider } from "../auth/AuthContext";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { Outlet } from "react-router-dom";
 import { useNavigation } from "react-router-dom";

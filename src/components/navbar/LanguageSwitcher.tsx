@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next";
 import { useState } from "react";
-import OutsideClickHandler from "../utils/OutsideClick";
+import OutsideClickHandler from "../../hooks/OutsideClick";
 import { IoIosArrowDown } from "react-icons/io";
 import { MdOutlineLanguage } from "react-icons/md";
 import { FaCheck } from "react-icons/fa6";

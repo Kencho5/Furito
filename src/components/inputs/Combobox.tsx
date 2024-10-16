@@ -2,8 +2,8 @@ import { useState, useMemo, useRef, useEffect } from "react";
 import { LuChevronsUpDown } from "react-icons/lu";
 import { FaCheck } from "react-icons/fa6";
 import { FiSearch } from "react-icons/fi";
-import OutsideClickHandler from "../utils/OutsideClick";
-import { getCountries } from "../utils/countries";
+import OutsideClickHandler from "../../hooks/OutsideClick";
+import { getCountries } from "../../utils/countries";
 import { useTranslation } from "react-i18next";
 import { IoClose } from "react-icons/io5";
 
@@ -34,7 +34,7 @@ export function Combobox() {
     <OutsideClickHandler onOutsideClick={() => setOpen(false)}>
       <div className="relative mb-4 w-[274px]">
         <button
-          className="flex w-full items-center justify-between rounded-lg border border-gray-300 bg-white px-3 py-2 transition-colors hover:bg-gray-100"
+          className="border-gray-300 hover:bg-gray-100 flex w-full items-center justify-between rounded-lg border bg-white px-3 py-2 transition-colors"
           onClick={() => setOpen(!open)}
           aria-expanded={open}
         >

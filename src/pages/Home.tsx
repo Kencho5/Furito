@@ -1,6 +1,6 @@
 import { useAuth } from "../auth/AuthContext";
 import { useTranslation } from "react-i18next";
-import { Combobox } from "../components/Combobox";
+import { Combobox } from "../components/inputs/Combobox";
 
 export const Home = () => {
   const { loggedIn } = useAuth();
