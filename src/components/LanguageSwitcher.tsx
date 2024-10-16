@@ -26,7 +26,7 @@ function LanguageSwitcher() {
 
   return (
     <OutsideClickHandler onOutsideClick={() => setIsOpen(false)}>
-      <div className="relative inline-block text-left font-normal">
+      <div className="relative z-10 inline-block text-left font-normal">
         <button
           type="button"
           onClick={() => setIsOpen(!isOpen)}

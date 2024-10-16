@@ -17,7 +17,7 @@ const Navbar = () => {
   const { t } = useTranslation();
 
   return (
-    <nav className="flex h-[72px] items-center border-b border-neutral-200 bg-neutral-100 sm:h-20">
+    <nav className="flex h-[72px] select-none items-center border-b border-neutral-200 bg-neutral-100 sm:h-20">
       <div className="container mx-auto flex items-center justify-between px-6 sm:px-4 lg:px-0">
         <Link to="">
           <img

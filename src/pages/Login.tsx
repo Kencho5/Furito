@@ -29,7 +29,7 @@ const loginRequest = async ({ email, password }: LoginRequest) => {
   return (await response.json()).token;
 };
 
-export const Login = () => {
+const Login = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const { login } = useAuth();
   const { t } = useTranslation();
@@ -55,16 +55,16 @@ export const Login = () => {
   };
 
   return (
-    <div className="flex min-h-screen flex-col items-center bg-stone-100">
+    <div className="bg-stone-100 flex min-h-screen flex-col items-center">
       <div className="mt-10 w-full max-w-sm transform rounded-lg bg-white p-8 shadow-lg">
-        <h3 className="mb-6 text-center text-3xl font-bold text-gray-800">
+        <h3 className="text-gray-800 mb-6 text-center text-3xl font-bold">
           {t("LOGIN.login")}
         </h3>
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
             <label
               htmlFor="email"
-              className="block text-sm font-medium text-gray-700"
+              className="text-gray-700 block text-sm font-medium"
             >
               email
             </label>
@@ -78,14 +78,14 @@ export const Login = () => {
                   payload: e.target.value,
                 })
               }
-              className="mt-2 w-full rounded-lg border border-gray-300 px-4 py-3 shadow-sm transition duration-200 ease-in-out focus:border-teal-500 focus:outline-none focus:ring-2 focus:ring-teal-500 sm:text-sm"
+              className="border-gray-300 focus:border-teal-500 focus:ring-teal-500 mt-2 w-full rounded-lg border px-4 py-3 shadow-sm transition duration-200 ease-in-out focus:outline-none focus:ring-2 sm:text-sm"
               placeholder="Enter your email"
             />
           </div>
           <div>
             <label
               htmlFor="password"
-              className="block text-sm font-medium text-gray-700"
+              className="text-gray-700 block text-sm font-medium"
             >
               Password
             </label>
@@ -99,39 +99,39 @@ export const Login = () => {
                   payload: e.target.value,
                 })
               }
-              className="mt-2 w-full rounded-lg border border-gray-300 px-4 py-3 shadow-sm transition duration-200 ease-in-out focus:border-teal-500 focus:outline-none focus:ring-2 focus:ring-teal-500 sm:text-sm"
+              className="border-gray-300 focus:border-teal-500 focus:ring-teal-500 mt-2 w-full rounded-lg border px-4 py-3 shadow-sm transition duration-200 ease-in-out focus:outline-none focus:ring-2 sm:text-sm"
               placeholder="Enter your password"
             />
           </div>
 
           {state.status === "error" && (
-            <div className="mb-4 rounded-md bg-red-100 p-4 text-red-600">
+            <div className="bg-red-100 text-red-600 mb-4 rounded-md p-4">
               <p>{state.message}</p>
             </div>
           )}
 
           {state.status === "success" && (
-            <div className="mb-4 rounded-md bg-green-100 p-4 text-green-600">
+            <div className="bg-green-100 text-green-600 mb-4 rounded-md p-4">
               <p>Login successful!</p>
             </div>
           )}
 
           <button
             type="submit"
-            className={`w-full transform rounded-lg bg-teal-600 px-4 py-3 text-lg font-semibold text-white shadow-sm transition-all duration-200 ease-in-out focus:outline-none ${
+            className={`bg-teal-600 w-full transform rounded-lg px-4 py-3 text-lg font-semibold text-white shadow-sm transition-all duration-200 ease-in-out focus:outline-none ${
               state.isLoading
-                ? "cursor-not-allowed bg-teal-400 motion-safe:animate-pulse"
-                : "hover:scale-105 hover:bg-teal-700"
+                ? "bg-teal-400 cursor-not-allowed motion-safe:animate-pulse"
+                : "hover:bg-teal-700 hover:scale-105"
             }`}
           >
             {state.isLoading ? "Submitting..." : "Login"}
           </button>
 
-          <div className="mt-4 text-center text-sm text-gray-600">
+          <div className="text-gray-600 mt-4 text-center text-sm">
             Don't have an account?{" "}
             <Link
               to="/register"
-              className="font-semibold text-teal-600 transition duration-200 hover:text-teal-700"
+              className="text-teal-600 hover:text-teal-700 font-semibold transition duration-200"
             >
               Register
             </Link>
