@@ -12,7 +12,14 @@
   },
   "NAV": {
     "upload": "Upload",
-    "login": "Login"
+    "login": "Login",
+
+    "MENU": {
+      "profile": "Profile",
+      "posts": "My posts",
+      "services": "My services",
+      "logout": "Log out"
+    }
   },
 
   "COUNTRIES": {

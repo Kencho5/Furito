@@ -5,7 +5,7 @@ import { IoIosArrowDown } from "react-icons/io";
 import { MdOutlineLanguage } from "react-icons/md";
 import { FaCheck } from "react-icons/fa6";
 
-function LanguageSwitcher() {
+function LanguageSelector() {
   const { i18n } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
   const [lang, setLang] = useState(
@@ -26,20 +26,20 @@ function LanguageSwitcher() {
 
   return (
     <OutsideClickHandler onOutsideClick={() => setIsOpen(false)}>
-      <div className="relative z-10 inline-block text-left font-normal">
+      <div className="relative inline-block text-left font-normal">
         <button
           type="button"
           onClick={() => setIsOpen(!isOpen)}
           className="flex h-10 items-center rounded-2xl border border-neutral-300 p-2.5 text-neutral-400 sm:h-11 sm:px-3 sm:py-2.5"
         >
-          <MdOutlineLanguage color="#888888" size={20} className="mr-1.5" />
+          <MdOutlineLanguage color="#888888" size={22} className="mr-1.5" />
           <span className="mr-0.5 text-sm font-semibold">
             {lang === "en" ? "Eng" : "ქარ"}
           </span>
           <IoIosArrowDown color="#888888" size={20} />
         </button>
         {isOpen && (
-          <div className="absolute right-0 mt-6 w-72 origin-top-right rounded-2xl bg-white shadow-md">
+          <div className="absolute right-0 z-10 mt-6 w-72 origin-top-right rounded-2xl bg-white shadow-md">
             <div className="space-y-2.5 p-2.5 font-normal">
               {languages.map(({ code, label }) => (
                 <button
@@ -61,4 +61,4 @@ function LanguageSwitcher() {
   );
 }
 
-export default LanguageSwitcher;
+export default LanguageSelector;

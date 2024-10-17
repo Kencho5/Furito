@@ -1,12 +1,12 @@
 import { Link } from "react-router-dom";
 import { useAuth } from "../../auth/AuthContext";
-import LanguageSwitcher from "./LanguageSwitcher";
+import LanguageSelector from "./LanguageSelector";
+import UserMenu from "./UserMenu";
 import { useTranslation } from "react-i18next";
 
 import { FaCirclePlus } from "react-icons/fa6";
 import { GoHeart } from "react-icons/go";
 import { FiShoppingCart } from "react-icons/fi";
-import { CgProfile } from "react-icons/cg";
 
 const Navbar = () => {
   const { loggedIn } = useAuth();
@@ -21,14 +21,14 @@ const Navbar = () => {
       <div className="container mx-auto flex items-center justify-between px-6 sm:px-4 lg:px-0">
         <Link to="">
           <img
-            src="/logo.svg"
+            src="/Logo.svg"
             alt="Logo"
             width={135}
             height={31}
             className="hidden sm:block"
           />
           <img
-            src="/logo_min.svg"
+            src="/LogoMin.svg"
             alt="Logo"
             width={45}
             height={31}
@@ -55,9 +55,7 @@ const Navbar = () => {
               <button>
                 <FiShoppingCart color="#888888" size={22} strokeWidth={2.5} />
               </button>
-              <button>
-                <CgProfile color="#888888" size={22} strokeWidth={0.5} />
-              </button>
+              <UserMenu />
             </>
           ) : (
             <Link
@@ -68,7 +66,7 @@ const Navbar = () => {
             </Link>
           )}
 
-          <LanguageSwitcher />
+          <LanguageSelector />
         </div>
       </div>
     </nav>
