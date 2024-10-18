@@ -2,11 +2,17 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import OutsideClickHandler from "../../hooks/OutsideClick";
 import { Link } from "react-router-dom";
+import { useAuth } from "../../auth/AuthContext";
 
 import { CgProfile } from "react-icons/cg";
 import { FiLogOut } from "react-icons/fi";
 
 function UserMenu() {
+  const { logout } = useAuth();
+  const handleLogout = async () => {
+    await logout();
+  };
+
   const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
 
@@ -59,7 +65,10 @@ function UserMenu() {
 
           <div className="h-px bg-neutral-200"></div>
 
-          <button className="flex w-full items-center gap-3.5 rounded-b-2xl p-4 transition hover:bg-neutral-50">
+          <button
+            className="flex w-full items-center gap-3.5 rounded-b-2xl p-4 transition hover:bg-neutral-50"
+            onClick={handleLogout}
+          >
             <FiLogOut size={20} />
             {t("NAV.MENU.logout")}
           </button>
