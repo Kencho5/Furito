@@ -10,9 +10,6 @@ import { FiShoppingCart } from "react-icons/fi";
 
 const Navbar = () => {
   const { loggedIn } = useAuth();
-  //const handleLogout = async () => {
-  //  await logout();
-  //};
 
   const { t } = useTranslation();
 
@@ -59,7 +56,7 @@ const Navbar = () => {
             </>
           ) : (
             <Link
-              to="login"
+              to="auth/login"
               className="flex h-10 items-center justify-center rounded-2xl bg-yellow-400 px-3.5 py-2.5 text-sm font-semibold sm:h-11 sm:px-5 sm:py-2.5"
             >
               {t("NAV.login")}

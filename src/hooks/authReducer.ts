@@ -1,4 +1,4 @@
-import { AuthState, AuthAction } from "./authTypes";
+import { AuthState, AuthAction } from "../utils/authTypes";
 
 export const initialState: AuthState = {
   email: "",

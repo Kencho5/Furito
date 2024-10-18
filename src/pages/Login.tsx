@@ -1,5 +1,5 @@
 import { useReducer } from "react";
-import { initialState, reducer } from "../utils/authReducer";
+import { initialState, reducer } from "../hooks/authReducer";
 import { useAuth } from "../auth/AuthContext";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
@@ -130,7 +130,7 @@ const Login = () => {
           <div className="text-gray-600 mt-4 text-center text-sm">
             Don't have an account?{" "}
             <Link
-              to="/register"
+              to="/auth/register"
               className="text-teal-600 hover:text-teal-700 font-semibold transition duration-200"
             >
               Register

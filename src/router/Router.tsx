@@ -1,5 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import Layout from "../layouts/Layout";
+import AuthLayout from "../layouts/AuthLayout";
 
 import Login from "../pages/Login";
 
@@ -16,6 +17,19 @@ export const router = createBrowserRouter([
         },
       },
       {
+        path: "*",
+        lazy: async () => {
+          const { NotFound } = await import("../pages/NotFound");
+          return { Component: NotFound };
+        },
+      },
+    ],
+  },
+  {
+    path: "/auth",
+    element: <AuthLayout />,
+    children: [
+      {
         path: "login",
         element: <Login />,
       },
@@ -24,13 +38,6 @@ export const router = createBrowserRouter([
         lazy: async () => {
           const { Register } = await import("../pages/Register");
           return { Component: Register };
-        },
-      },
-      {
-        path: "*",
-        lazy: async () => {
-          const { NotFound } = await import("../pages/NotFound");
-          return { Component: NotFound };
         },
       },
     ],
