@@ -19,11 +19,9 @@ function Layout() {
   return (
     <AuthProvider>
       <QueryClientProvider client={queryClient}>
-        <div>
-          <Navbar />
-          {navigation.state == "loading" && <TopBarProgress />}
-          <Outlet />
-        </div>
+        <Navbar />
+        {navigation.state == "loading" && <TopBarProgress />}
+        <Outlet />
       </QueryClientProvider>
     </AuthProvider>
   );

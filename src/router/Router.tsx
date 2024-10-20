@@ -1,8 +1,10 @@
 import { createBrowserRouter } from "react-router-dom";
+import { Suspense, lazy } from "react";
+
 import Layout from "../layouts/Layout";
 import AuthLayout from "../layouts/AuthLayout";
 
-import Login from "../pages/Login";
+const Login = lazy(() => import("../pages/Login"));
 
 export const router = createBrowserRouter([
   {
@@ -31,7 +33,11 @@ export const router = createBrowserRouter([
     children: [
       {
         path: "login",
-        element: <Login />,
+        element: (
+          <Suspense fallback={<div>Loading...</div>}>
+            <Login />
+          </Suspense>
+        ),
       },
       {
         path: "register",

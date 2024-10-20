@@ -19,7 +19,7 @@ function AuthLayout() {
   return (
     <AuthProvider>
       <QueryClientProvider client={queryClient}>
-        <div>
+        <div className="mx-6 mt-16 flex flex-col items-center gap-8 sm:mt-20">
           <AuthHeader />
           {navigation.state == "loading" && <TopBarProgress />}
           <Outlet />

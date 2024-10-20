@@ -39,7 +39,7 @@ function UserMenu() {
 
           <div className="h-px bg-neutral-200"></div>
 
-          <div className="font-semibold">
+          <div className="text-sm font-semibold">
             <Link
               to="profile"
               className="flex items-center gap-3.5 p-4 transition hover:bg-neutral-50"
@@ -66,7 +66,7 @@ function UserMenu() {
           <div className="h-px bg-neutral-200"></div>
 
           <button
-            className="flex w-full items-center gap-3.5 rounded-b-2xl p-4 transition hover:bg-neutral-50"
+            className="flex w-full items-center gap-3.5 rounded-b-2xl p-4 text-sm transition hover:bg-neutral-50"
             onClick={handleLogout}
           >
             <FiLogOut size={20} />
