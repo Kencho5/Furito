@@ -4,7 +4,7 @@ import { AuthForm } from "../components/auth/AuthForm";
 import { useMutation } from "react-query";
 import { useAuth } from "../auth/AuthContext";
 import { useState } from "react";
-import { AuthSkeleton } from "../components/auth/AuthSkeleton";
+import { LuEye, LuEyeOff } from "react-icons/lu";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -38,6 +38,7 @@ const Login = () => {
     formState: { errors },
   } = useForm<IFormInputs>();
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [showPassword, setShowPassword] = useState(false);
 
   const { mutate } = useMutation(loginRequest, {
     onSuccess: async (token) => {
@@ -66,13 +67,32 @@ const Login = () => {
         {...register("email", { required: "This field is required" })}
         error={!!errors.email}
       />
-      <Input
-        label="პაროლი"
-        placeholder="••••••••"
-        type="password"
-        {...register("password", { required: "This field is required" })}
-        error={!!errors.password}
-      />
+
+      <div className="relative">
+        <Input
+          label="პაროლი"
+          placeholder="••••••••"
+          type={showPassword ? "text" : "password"}
+          {...register("password", { required: "This field is required" })}
+          error={!!errors.password}
+        />
+
+        <div>
+          <LuEye
+            size={18}
+            className={`absolute right-4 top-1/2 ${showPassword && "hidden"} translate-y-1/2 cursor-pointer`}
+            color="#888888"
+            onClick={() => setShowPassword(true)}
+          />
+          <LuEyeOff
+            size={18}
+            className={`absolute right-4 top-1/2 ${!showPassword && "hidden"} translate-y-1/2 cursor-pointer`}
+            color="#888888"
+            onClick={() => setShowPassword(false)}
+          />
+        </div>
+      </div>
+
       {Object.keys(errors).length > 0 && (
         <span>{errors.email?.message || errors.password?.message}</span>
       )}
