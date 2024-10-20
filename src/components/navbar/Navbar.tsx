@@ -18,7 +18,7 @@ const Navbar = () => {
       <div className="container mx-auto flex items-center justify-between px-6 sm:px-4 lg:px-0">
         <Link to="">
           <img
-            src="/Logo.svg"
+            src="/LogoFull.svg"
             alt="Logo"
             width={135}
             height={31}

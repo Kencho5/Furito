@@ -6,7 +6,7 @@ function AuthHeader() {
     <div className="flex w-full max-w-[550px] items-center justify-between">
       <Link to="/">
         <img
-          src="/Logo.svg"
+          src="/LogoFull.svg"
           alt="Logo"
           className="h-[31px] w-[135px] sm:h-[35px] sm:w-[154px]"
         />
