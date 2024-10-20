@@ -3,6 +3,7 @@ type AuthFormProps = {
   children: React.ReactNode;
   title: string;
   titleSub: string;
+  submitText: string;
 };
 
 export function AuthForm({
@@ -10,6 +11,7 @@ export function AuthForm({
   children,
   title,
   titleSub,
+  submitText,
 }: AuthFormProps) {
   return (
     <form
@@ -22,6 +24,13 @@ export function AuthForm({
       </div>
 
       {children}
+
+      <button
+        type="submit"
+        className="rounded-2xl bg-yellow-400 px-5 py-2.5 font-bold"
+      >
+        {submitText}
+      </button>
     </form>
   );
 }

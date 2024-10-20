@@ -59,6 +59,7 @@ const Login = () => {
     <AuthForm
       title="ავტორიზაცია"
       titleSub="შეიყვანე შენი დეტალები"
+      submitText="Login"
       onSubmit={handleSubmit(onSubmit)}
     >
       <Input
@@ -97,8 +98,6 @@ const Login = () => {
         <span>{errors.email?.message || errors.password?.message}</span>
       )}
       {errorMessage && <span>{errorMessage}</span>}
-
-      <button type="submit">Login</button>
     </AuthForm>
   );
 };

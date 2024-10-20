@@ -19,6 +19,7 @@ function Layout() {
   return (
     <AuthProvider>
       <QueryClientProvider client={queryClient}>
+        <img src="/BgPattern.svg" className="absolute -z-10" />
         <Navbar />
         {navigation.state == "loading" && <TopBarProgress />}
         <Outlet />
