@@ -4,6 +4,7 @@ import { AuthForm } from "../components/auth/AuthForm";
 import { useMutation } from "react-query";
 import { useAuth } from "../auth/AuthContext";
 import { useState } from "react";
+import { AuthSkeleton } from "../components/auth/AuthSkeleton";
 
 const API_URL = import.meta.env.VITE_API_URL;
 

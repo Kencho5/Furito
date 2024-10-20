@@ -3,6 +3,7 @@ import { Suspense, lazy } from "react";
 
 import Layout from "../layouts/Layout";
 import AuthLayout from "../layouts/AuthLayout";
+import { AuthSkeleton } from "../components/auth/AuthSkeleton";
 
 const Login = lazy(() => import("../pages/Login"));
 
@@ -34,7 +35,7 @@ export const router = createBrowserRouter([
       {
         path: "login",
         element: (
-          <Suspense fallback={<div>Loading...</div>}>
+          <Suspense fallback={<AuthSkeleton width="550" height="462" />}>
             <Login />
           </Suspense>
         ),
