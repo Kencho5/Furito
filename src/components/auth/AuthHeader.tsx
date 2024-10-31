@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 function AuthHeader() {
   return (
-    <div className="flex w-full max-w-[550px] items-center justify-between">
+    <div className="z-20 flex w-full max-w-[550px] items-center justify-between">
       <Link to="/">
         <img
           src="/LogoFull.svg"

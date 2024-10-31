@@ -108,7 +108,7 @@ const Login = () => {
 
       <button
         type="submit"
-        className="rounded-2xl bg-yellow-400 px-5 py-2.5 font-bold"
+        className="rounded-2xl bg-yellow-400 px-5 py-2.5 text-base font-bold"
       >
         შესვლა
       </button>
