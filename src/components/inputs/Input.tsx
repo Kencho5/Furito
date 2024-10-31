@@ -13,7 +13,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
         <input
           ref={ref}
           {...props}
-          className={`w-full rounded-2xl border px-3.5 py-2.5 outline-none placeholder:font-normal placeholder:text-neutral-400 ${
+          className={`h-11 w-full rounded-2xl border px-3.5 py-2.5 outline-none placeholder:font-normal placeholder:text-neutral-400 ${
             error ? "border-orange-500" : "border-neutral-200"
           }`}
         />

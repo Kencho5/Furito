@@ -5,6 +5,7 @@ import { useMutation } from "react-query";
 import { useAuth } from "../auth/AuthContext";
 import { useState } from "react";
 import { LuEye, LuEyeOff } from "react-icons/lu";
+import { Link } from "react-router-dom";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -59,7 +60,6 @@ const Login = () => {
     <AuthForm
       title="ავტორიზაცია"
       titleSub="შეიყვანე შენი დეტალები"
-      submitText="Login"
       onSubmit={handleSubmit(onSubmit)}
     >
       <Input
@@ -94,10 +94,29 @@ const Login = () => {
         </div>
       </div>
 
+      <Link
+        to="/auth/forgot-password"
+        className="text-right text-sm text-orange-500"
+      >
+        დაგავიწყდა პაროლი?
+      </Link>
+
       {Object.keys(errors).length > 0 && (
         <span>{errors.email?.message || errors.password?.message}</span>
       )}
       {errorMessage && <span>{errorMessage}</span>}
+
+      <button
+        type="submit"
+        className="rounded-2xl bg-yellow-400 px-5 py-2.5 font-bold"
+      >
+        შესვლა
+      </button>
+
+      <Link to="/auth/register" className="text-center text-sm font-normal">
+        არ გაქვს ანგარიში?{" "}
+        <span className="font-semibold text-orange-500">რეგისტრაცია</span>
+      </Link>
     </AuthForm>
   );
 };

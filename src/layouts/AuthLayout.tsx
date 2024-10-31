@@ -19,8 +19,11 @@ function AuthLayout() {
   return (
     <AuthProvider>
       <QueryClientProvider client={queryClient}>
-        <div className="mx-6 mt-16 flex flex-col items-center gap-8 sm:mt-20">
-          <img src="/BgPattern.svg" className="absolute -top-10 -z-10" />
+        <div className="mx-6 mt-12 flex flex-col items-center gap-8 sm:mt-20">
+          <img
+            src="/BgPattern.svg"
+            className="absolute -top-10 -z-10 h-full w-full object-cover"
+          />
           <AuthHeader />
           {navigation.state == "loading" && <TopBarProgress />}
           <Outlet />
