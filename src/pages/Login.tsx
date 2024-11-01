@@ -7,6 +7,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 
 import { LuEye, LuEyeOff } from "react-icons/lu";
+import { TiWarningOutline } from "react-icons/ti";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -59,18 +60,11 @@ export const Login = () => {
 
   return (
     <AuthForm title="ავტორიზაცია" onSubmit={handleSubmit(onSubmit)}>
-      <div>
-        <Input
-          placeholder="ელ. ფოსტა"
-          {...register("email", { required: "This field is required" })}
-          error={!!errors.email}
-        />
-        {errors.email && (
-          <p className="mt-2 text-sm font-normal text-orange-500">
-            შეყვანილი ველი არასწორია
-          </p>
-        )}
-      </div>
+      <Input
+        placeholder="ელ. ფოსტა"
+        {...register("email", { required: "This field is required" })}
+        error={!!errors.email}
+      />
 
       <div className="relative">
         <Input
@@ -96,6 +90,16 @@ export const Login = () => {
         </div>
       </div>
 
+      {errorMessage && (
+        <div className="flex items-center gap-2">
+          <TiWarningOutline size={24} color="#fd590d" />
+
+          <span className="font-normal text-orange-500">
+            ელ. ფოსტა ან პაროლი არასწორია
+          </span>
+        </div>
+      )}
+
       <Link
         to="/auth/forgot-password"
         className="text-right text-sm text-neutral-900"
@@ -103,14 +107,9 @@ export const Login = () => {
         პაროლის აღდგენა
       </Link>
 
-      {Object.keys(errors).length > 0 && (
-        <span>{errors.email?.message || errors.password?.message}</span>
-      )}
-      {errorMessage && <span>{errorMessage}</span>}
-
       <button
         type="submit"
-        className="rounded-2xl bg-yellow-400 px-5 py-2.5 text-base font-bold text-neutral-900"
+        className="rounded-2xl bg-yellow-400 px-5 py-2.5 text-base font-semibold text-neutral-900"
       >
         შესვლა
       </button>

@@ -35,7 +35,7 @@ export const router = createBrowserRouter([
       {
         path: "login",
         element: (
-          <Suspense fallback={<AuthSkeleton width="550" height="462" />}>
+          <Suspense fallback={<AuthSkeleton width="550" height="424" />}>
             <Login />
           </Suspense>
         ),
