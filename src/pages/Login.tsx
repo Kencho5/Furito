@@ -31,7 +31,7 @@ const loginRequest = async ({ email, password }: IFormInputs) => {
   return (await response.json()).token;
 };
 
-const Login = () => {
+export const Login = () => {
   const { login } = useAuth();
   const {
     register,
