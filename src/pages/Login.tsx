@@ -62,12 +62,19 @@ const Login = () => {
       titleSub="შეიყვანე შენი დეტალები"
       onSubmit={handleSubmit(onSubmit)}
     >
-      <Input
-        label="ელ. ფოსტა"
-        placeholder="example@gmail.com"
-        {...register("email", { required: "This field is required" })}
-        error={!!errors.email}
-      />
+      <div>
+        <Input
+          label="ელ. ფოსტა"
+          placeholder="example@gmail.com"
+          {...register("email", { required: "This field is required" })}
+          error={!!errors.email}
+        />
+        {errors.email && (
+          <p className="mt-2 text-sm font-normal text-orange-500">
+            შეყვანილი ველი არასწორია
+          </p>
+        )}
+      </div>
 
       <div className="relative">
         <Input

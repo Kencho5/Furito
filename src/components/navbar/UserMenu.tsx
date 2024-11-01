@@ -6,6 +6,7 @@ import { useAuth } from "../../auth/AuthContext";
 
 import { CgProfile } from "react-icons/cg";
 import { FiLogOut } from "react-icons/fi";
+import UserPaw from "/icons/UserPaw.svg";
 
 function UserMenu() {
   const { logout } = useAuth();
@@ -28,7 +29,7 @@ function UserMenu() {
       {isOpen && (
         <div className="absolute right-10 z-10 mt-10 w-[300px] origin-top-right rounded-2xl bg-white shadow-md sm:right-28">
           <div className="flex items-center gap-3 p-4">
-            <img src="/icons/UserPaw.svg" width={48} height={48} />
+            <img src={UserPaw} width={48} height={48} />
             <div className="min-w-0 flex-1">
               <h1 className="truncate text-lg">გიორგი კენჭაძე</h1>
               <p className="truncate text-sm font-normal text-neutral-500">
