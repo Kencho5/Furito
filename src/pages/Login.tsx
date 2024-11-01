@@ -4,8 +4,9 @@ import { AuthForm } from "../components/auth/AuthForm";
 import { useMutation } from "react-query";
 import { useAuth } from "../auth/AuthContext";
 import { useState } from "react";
-import { LuEye, LuEyeOff } from "react-icons/lu";
 import { Link } from "react-router-dom";
+
+import { LuEye, LuEyeOff } from "react-icons/lu";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -57,15 +58,10 @@ export const Login = () => {
   };
 
   return (
-    <AuthForm
-      title="ავტორიზაცია"
-      titleSub="შეიყვანე შენი დეტალები"
-      onSubmit={handleSubmit(onSubmit)}
-    >
+    <AuthForm title="ავტორიზაცია" onSubmit={handleSubmit(onSubmit)}>
       <div>
         <Input
-          label="ელ. ფოსტა"
-          placeholder="example@gmail.com"
+          placeholder="ელ. ფოსტა"
           {...register("email", { required: "This field is required" })}
           error={!!errors.email}
         />
@@ -78,23 +74,22 @@ export const Login = () => {
 
       <div className="relative">
         <Input
-          label="პაროლი"
-          placeholder="••••••••"
+          placeholder="პაროლი"
           type={showPassword ? "text" : "password"}
           {...register("password", { required: "This field is required" })}
           error={!!errors.password}
         />
 
-        <div>
+        <div className="absolute inset-y-0 right-4 flex cursor-pointer items-center">
           <LuEye
             size={18}
-            className={`absolute right-4 top-1/2 ${showPassword && "hidden"} translate-y-1/2 cursor-pointer`}
+            className={showPassword ? "hidden" : ""}
             color="#888888"
             onClick={() => setShowPassword(true)}
           />
           <LuEyeOff
             size={18}
-            className={`absolute right-4 top-1/2 ${!showPassword && "hidden"} translate-y-1/2 cursor-pointer`}
+            className={!showPassword ? "hidden" : ""}
             color="#888888"
             onClick={() => setShowPassword(false)}
           />
@@ -103,9 +98,9 @@ export const Login = () => {
 
       <Link
         to="/auth/forgot-password"
-        className="text-right text-sm text-orange-500"
+        className="text-right text-sm text-neutral-900"
       >
-        დაგავიწყდა პაროლი?
+        პაროლის აღდგენა
       </Link>
 
       {Object.keys(errors).length > 0 && (
@@ -115,14 +110,16 @@ export const Login = () => {
 
       <button
         type="submit"
-        className="rounded-2xl bg-yellow-400 px-5 py-2.5 text-base font-bold"
+        className="rounded-2xl bg-yellow-400 px-5 py-2.5 text-base font-bold text-neutral-900"
       >
         შესვლა
       </button>
 
-      <Link to="/auth/register" className="text-center text-sm font-normal">
-        არ გაქვს ანგარიში?{" "}
-        <span className="font-semibold text-orange-500">რეგისტრაცია</span>
+      <Link
+        to="/auth/register"
+        className="text-center text-sm font-normal text-neutral-400"
+      >
+        არ გაქვს ანგარიში? <span className="text-orange-500">რეგისტრაცია</span>
       </Link>
     </AuthForm>
   );
