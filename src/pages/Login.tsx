@@ -5,6 +5,7 @@ import { useMutation } from "react-query";
 import { useAuth } from "../auth/AuthContext";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 import { LuEye, LuEyeOff } from "react-icons/lu";
 import { TiWarningOutline } from "react-icons/ti";
@@ -34,22 +35,23 @@ const loginRequest = async ({ email, password }: IFormInputs) => {
 };
 
 export const Login = () => {
+  const { t } = useTranslation();
   const { login } = useAuth();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<IFormInputs>();
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [errorMessage, setErrorMessage] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
   const { mutate } = useMutation(loginRequest, {
     onSuccess: async (token) => {
       await login(token);
-      setErrorMessage(null);
+      setErrorMessage(false);
     },
-    onError: (error: Error) => {
-      setErrorMessage(error.message);
+    onError: () => {
+      setErrorMessage(true);
     },
     onSettled: () => {},
   });
@@ -59,16 +61,16 @@ export const Login = () => {
   };
 
   return (
-    <AuthForm title="ავტორიზაცია" onSubmit={handleSubmit(onSubmit)}>
+    <AuthForm title={t("LOGIN.auth")} onSubmit={handleSubmit(onSubmit)}>
       <Input
-        placeholder="ელ. ფოსტა"
+        placeholder={t("LOGIN.email")}
         {...register("email", { required: "This field is required" })}
         error={!!errors.email}
       />
 
       <div className="relative">
         <Input
-          placeholder="პაროლი"
+          placeholder={t("LOGIN.password")}
           type={showPassword ? "text" : "password"}
           {...register("password", { required: "This field is required" })}
           error={!!errors.password}
@@ -95,30 +97,31 @@ export const Login = () => {
           <TiWarningOutline size={24} color="#fd590d" />
 
           <span className="font-normal text-orange-500">
-            ელ. ფოსტა ან პაროლი არასწორია
+            {t("LOGIN.error")}
           </span>
         </div>
       )}
 
       <Link
-        to="/auth/forgot-password"
+        to="/auth/reset-password"
         className="text-right text-sm text-neutral-900"
       >
-        პაროლის აღდგენა
+        {t("LOGIN.reset_password")}
       </Link>
 
       <button
         type="submit"
         className="rounded-2xl bg-yellow-400 px-5 py-2.5 text-base font-semibold text-neutral-900"
       >
-        შესვლა
+        {t("LOGIN.submit")}
       </button>
 
       <Link
         to="/auth/register"
         className="text-center text-sm font-normal text-neutral-400"
       >
-        არ გაქვს ანგარიში? <span className="text-orange-500">რეგისტრაცია</span>
+        {t("LOGIN.no_account")}{" "}
+        <span className="text-orange-500">{t("LOGIN.register")}</span>
       </Link>
     </AuthForm>
   );

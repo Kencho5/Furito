@@ -3,7 +3,14 @@
     "home": "Home"
   },
   "LOGIN": {
-    "login": "Login"
+    "auth": "Authorization",
+    "email": "Email",
+    "password": "Password",
+    "reset_password": "Reset password",
+    "no_account": "Don't have an account?",
+    "register": "Register",
+    "error": "Email or password is incorrect",
+    "submit": "Log in"
   },
   "COMBOBOX": {
     "select": "Select your country...",
