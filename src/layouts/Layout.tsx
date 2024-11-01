@@ -19,7 +19,10 @@ function Layout() {
   return (
     <AuthProvider>
       <QueryClientProvider client={queryClient}>
-        <img src="/BgPattern.svg" className="absolute -z-10" />
+        <img
+          src="/BgPattern.svg"
+          className="absolute inset-0 -z-10 h-screen w-screen object-cover"
+        />
         <Navbar />
         {navigation.state == "loading" && <TopBarProgress />}
         <Outlet />
