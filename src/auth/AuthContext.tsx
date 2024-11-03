@@ -9,7 +9,7 @@ interface DecodedToken {
 interface AuthState {
   loggedIn: boolean;
   verify: () => Promise<boolean>;
-  login: (token: string) => Promise<"success" | "error">;
+  login: (token: string) => Promise<boolean>;
   logout: () => Promise<void>;
 }
 
@@ -30,10 +30,11 @@ export const useAuth = create<AuthState>((set) => ({
   },
 
   login: async (token: string) => {
-    if (!token) return "error";
+    if (!token) return false;
+
     localStorage.setItem("token", token);
     set({ loggedIn: true });
-    return "success";
+    return true;
   },
 
   logout: async () => {

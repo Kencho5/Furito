@@ -1,14 +1,15 @@
-import { useForm, SubmitHandler } from "react-hook-form";
-import { Input } from "../components/inputs/Input";
-import { AuthForm } from "../components/auth/AuthForm";
-import { useMutation } from "react-query";
-import { useAuth } from "../auth/AuthContext";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useForm, SubmitHandler } from "react-hook-form";
+import { useMutation } from "react-query";
 import { useTranslation } from "react-i18next";
-
 import { LuEye, LuEyeOff } from "react-icons/lu";
 import { TiWarningOutline } from "react-icons/ti";
+
+import { Input } from "../components/inputs/Input";
+import { AuthForm } from "../components/auth/AuthForm";
+import { useAuth } from "../auth/AuthContext";
+import { Spinner } from "../components/ui/Spinner";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -17,12 +18,33 @@ interface IFormInputs {
   password: string;
 }
 
+const PasswordToggle = ({
+  show,
+  onToggle,
+}: {
+  show: boolean;
+  onToggle: () => void;
+}) => (
+  <div className="absolute inset-y-0 right-4 flex cursor-pointer items-center">
+    {show ? (
+      <LuEyeOff size={18} color="#888888" onClick={onToggle} />
+    ) : (
+      <LuEye size={18} color="#888888" onClick={onToggle} />
+    )}
+  </div>
+);
+
+const ErrorMessage = ({ message }: { message: string }) => (
+  <div className="flex items-center gap-2">
+    <TiWarningOutline size={24} color="#fd590d" />
+    <span className="font-normal text-orange-500">{message}</span>
+  </div>
+);
+
 const loginRequest = async ({ email, password }: IFormInputs) => {
   const response = await fetch(`${API_URL}/login`, {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
+    headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ email, password }),
   });
 
@@ -37,27 +59,34 @@ const loginRequest = async ({ email, password }: IFormInputs) => {
 export const Login = () => {
   const { t } = useTranslation();
   const { login } = useAuth();
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<IFormInputs>();
-  const [errorMessage, setErrorMessage] = useState(false);
-  const [showPassword, setShowPassword] = useState(false);
 
   const { mutate } = useMutation(loginRequest, {
     onSuccess: async (token) => {
-      await login(token);
+      setLoading(false);
+
+      const loggedIn = await login(token);
       setErrorMessage(false);
+      if (loggedIn) navigate("/profile");
     },
     onError: () => {
       setErrorMessage(true);
+      setLoading(false);
     },
-    onSettled: () => {},
   });
 
   const onSubmit: SubmitHandler<IFormInputs> = (data) => {
-    mutate({ email: data.email, password: data.password });
+    setLoading(true);
+    mutate(data);
   };
 
   return (
@@ -75,32 +104,13 @@ export const Login = () => {
           {...register("password", { required: "This field is required" })}
           error={!!errors.password}
         />
-
-        <div className="absolute inset-y-0 right-4 flex cursor-pointer items-center">
-          <LuEye
-            size={18}
-            className={showPassword ? "hidden" : ""}
-            color="#888888"
-            onClick={() => setShowPassword(true)}
-          />
-          <LuEyeOff
-            size={18}
-            className={!showPassword ? "hidden" : ""}
-            color="#888888"
-            onClick={() => setShowPassword(false)}
-          />
-        </div>
+        <PasswordToggle
+          show={showPassword}
+          onToggle={() => setShowPassword(!showPassword)}
+        />
       </div>
 
-      {errorMessage && (
-        <div className="flex items-center gap-2">
-          <TiWarningOutline size={24} color="#fd590d" />
-
-          <span className="font-normal text-orange-500">
-            {t("LOGIN.error")}
-          </span>
-        </div>
-      )}
+      {errorMessage && <ErrorMessage message={t("LOGIN.error")} />}
 
       <Link
         to="/auth/reset-password"
@@ -111,9 +121,13 @@ export const Login = () => {
 
       <button
         type="submit"
-        className="rounded-2xl bg-yellow-400 px-5 py-2.5 text-base font-semibold text-neutral-900"
+        className={`rounded-2xl bg-yellow-400 px-5 py-2.5 text-base font-semibold text-neutral-900 ${loading && "animate-pulse"} flex max-h-[44px] items-center justify-center`}
       >
-        {t("LOGIN.submit")}
+        {!loading ? (
+          t("LOGIN.submit")
+        ) : (
+          <Spinner fillColor="orange-500" textColor="white" size={30} />
+        )}
       </button>
 
       <Link
