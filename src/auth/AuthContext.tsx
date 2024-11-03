@@ -2,6 +2,10 @@ import React, { ReactNode } from "react";
 import { create } from "zustand";
 import { jwtDecode } from "jwt-decode";
 
+interface DecodedToken {
+  exp: number;
+}
+
 interface AuthState {
   loggedIn: boolean;
   verify: () => Promise<boolean>;
@@ -15,10 +19,14 @@ export const useAuth = create<AuthState>((set) => ({
   verify: async () => {
     const token = localStorage.getItem("token");
     if (!token) return false;
-    const decoded: any = jwtDecode(token);
-    console.log(decoded);
-    const now = Date.now() / 1000;
-    return parseInt(decoded.exp, 10) > now;
+
+    try {
+      const decoded = jwtDecode<DecodedToken>(token);
+      const now = Date.now() / 1000;
+      return decoded.exp > now;
+    } catch {
+      return false;
+    }
   },
 
   login: async (token: string) => {
