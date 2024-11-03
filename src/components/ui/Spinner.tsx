@@ -9,7 +9,7 @@ export function Spinner({ fillColor, textColor, size = 32 }: SpinnerProps) {
     <div role="status">
       <svg
         aria-hidden="true"
-        className={`animate-spin fill-${fillColor} text-${textColor}`}
+        className={`animate-spin ${fillColor} ${textColor}`}
         style={{ height: size, width: size }}
         viewBox="0 0 100 101"
         fill="none"

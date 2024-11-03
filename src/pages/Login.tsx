@@ -126,7 +126,11 @@ export const Login = () => {
         {!loading ? (
           t("LOGIN.submit")
         ) : (
-          <Spinner fillColor="orange-500" textColor="white" size={30} />
+          <Spinner
+            fillColor="fill-orange-500"
+            textColor="text-white"
+            size={30}
+          />
         )}
       </button>
 
