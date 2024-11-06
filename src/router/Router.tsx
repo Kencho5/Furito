@@ -6,6 +6,7 @@ import AuthLayout from "../layouts/AuthLayout";
 import { AuthSkeleton } from "../components/auth/AuthSkeleton";
 
 const Login = lazy(() => import("../pages/Login"));
+const Register = lazy(() => import("../pages/Register"));
 
 export const router = createBrowserRouter([
   {
@@ -42,10 +43,11 @@ export const router = createBrowserRouter([
       },
       {
         path: "register",
-        lazy: async () => {
-          const { Register } = await import("../pages/Register");
-          return { Component: Register };
-        },
+        element: (
+          <Suspense fallback={<AuthSkeleton width="550" height="424" />}>
+            <Register />
+          </Suspense>
+        ),
       },
     ],
   },

@@ -2,26 +2,42 @@ import { useState, useMemo, useRef, useEffect } from "react";
 import { LuChevronsUpDown } from "react-icons/lu";
 import { FaCheck } from "react-icons/fa6";
 import { FiSearch } from "react-icons/fi";
-import OutsideClickHandler from "../../hooks/OutsideClick";
-import { getCountries } from "../../utils/countries";
-import { useTranslation } from "react-i18next";
 import { IoClose } from "react-icons/io5";
+import OutsideClickHandler from "../../hooks/OutsideClick";
 
-export function Combobox() {
+interface ComboboxItem {
+  value: string;
+  label: string;
+}
+
+interface ComboboxProps {
+  items: ComboboxItem[];
+  placeholder?: string;
+  searchPlaceholder?: string;
+  notFoundText?: string;
+  className?: string;
+  onSelect?: (value: string) => void;
+}
+
+export function Combobox({
+  items,
+  placeholder,
+  searchPlaceholder,
+  notFoundText,
+  className,
+  onSelect,
+}: ComboboxProps) {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState("");
   const [search, setSearch] = useState("");
   const selectedRef = useRef<HTMLButtonElement | null>(null);
 
-  const { t, i18n } = useTranslation();
-  const countries = useMemo(() => getCountries(t, i18n), [t, i18n]);
-
-  const filteredcountries = useMemo(
+  const filteredItems = useMemo(
     () =>
-      countries.filter((country) =>
-        country.label.toLowerCase().includes(search.toLowerCase()),
+      items.filter((item) =>
+        item.label.toLowerCase().includes(search.toLowerCase()),
       ),
-    [search, countries],
+    [search, items],
   );
 
   useEffect(() => {
@@ -30,63 +46,70 @@ export function Combobox() {
     }
   }, [open]);
 
+  const handleSelect = (selectedValue: string) => {
+    setValue(selectedValue === value ? "" : selectedValue);
+    onSelect?.(selectedValue);
+    setOpen(false);
+  };
+
   return (
     <OutsideClickHandler onOutsideClick={() => setOpen(false)}>
-      <div className="relative mb-4 w-[274px]">
+      <div className={`relative ${className}`}>
         <button
-          className="border-gray-300 hover:bg-gray-100 flex w-full items-center justify-between rounded-lg border bg-white px-3 py-2 transition-colors"
+          type="button"
+          className="flex w-full items-center justify-between rounded-2xl border border-neutral-200 px-3 py-2 text-base font-normal"
           onClick={() => setOpen(!open)}
           aria-expanded={open}
         >
           {value
-            ? countries.find((country) => country.value === value)?.label
-            : t("COMBOBOX.select")}
+            ? items.find((item) => item.value === value)?.label
+            : placeholder}
           <LuChevronsUpDown size={18} className="ml-2 opacity-50" />
         </button>
+
         {open && (
-          <div className="absolute z-10 mt-2 w-full rounded-lg border border-neutral-300 bg-white shadow-lg">
+          <div className="absolute z-10 mt-2 w-full rounded-2xl border border-neutral-200 bg-white shadow-sm">
             <div className="flex items-center justify-between border-b border-neutral-300">
-              <div className="py-2">
-                <FiSearch size={18} className="ml-3" />
-              </div>
+              <FiSearch size={18} className="ml-3 flex-shrink-0" />
               <input
                 autoFocus
                 type="text"
-                placeholder={t("COMBOBOX.search")}
+                placeholder={searchPlaceholder}
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 className="w-full rounded-t-md px-3 py-2 pl-2 outline-none"
               />
-              <div className="py-2">
-                <IoClose
-                  size={18}
-                  color="#78716c"
-                  className="mr-3 cursor-pointer"
-                  onClick={() => setSearch("")}
-                />
+              <div className="mr-3 flex-shrink-0">
+                {search && (
+                  <IoClose
+                    size={18}
+                    className="cursor-pointer text-neutral-500"
+                    onClick={() => setSearch("")}
+                  />
+                )}
               </div>
             </div>
-            <div className="max-h-60 overflow-y-auto p-2">
-              {filteredcountries.length === 0 ? (
-                <div className="p-3 text-center">{t("COMBOBOX.not_found")}</div>
+
+            <div className="max-h-40 overflow-y-auto p-2 font-normal">
+              {filteredItems.length === 0 ? (
+                <div className="flex items-center justify-center p-2 text-center">
+                  {notFoundText}
+                </div>
               ) : (
-                filteredcountries.map((country) => (
+                filteredItems.map((item) => (
                   <button
-                    key={country.value}
-                    ref={value === country.value ? selectedRef : null}
-                    className={`mx-auto flex w-full items-center rounded-md px-2 py-2 text-center transition-colors hover:bg-neutral-100 ${value === country.value ? "bg-neutral-100" : ""}`}
-                    onClick={() => {
-                      setValue(value === country.value ? "" : country.value);
-                      setOpen(false);
-                    }}
+                    type="button"
+                    key={item.value}
+                    ref={value === item.value ? selectedRef : null}
+                    className={`mx-auto mt-1 flex w-full items-center rounded-md px-2 py-2 text-center transition-colors hover:bg-neutral-100 ${
+                      value === item.value ? "bg-neutral-100" : ""
+                    }`}
+                    onClick={() => handleSelect(item.value)}
                   >
-                    {value === country.value && (
-                      <FaCheck className="mr-2 h-4 w-4 opacity-100" />
-                    )}
-                    {value !== country.value && (
-                      <span className="mr-2 h-4 w-4 opacity-0" />
-                    )}
-                    {country.label}
+                    <span className="mr-2 h-4 w-4">
+                      {value === item.value && <FaCheck />}
+                    </span>
+                    {item.label}
                   </button>
                 ))
               )}

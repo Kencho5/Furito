@@ -1,3 +1,183 @@
-export const Register = () => {
-  return <></>;
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import { useForm, SubmitHandler } from "react-hook-form";
+import { useMutation } from "react-query";
+import { useTranslation } from "react-i18next";
+import { ErrorMessage } from "../components/auth/ErrorMessage";
+
+import { AuthForm } from "../components/auth/AuthForm";
+import { useAuth } from "../auth/AuthContext";
+import { Spinner } from "../components/ui/Spinner";
+import { IRegisterInputs } from "../auth/AuthTypes";
+import { UserForm } from "../components/auth/UserForm";
+import { CompanyForm } from "../components/auth/CompanyForm";
+import { Input } from "../components/inputs/Input";
+import { FaCircleCheck } from "react-icons/fa6";
+import PasswordToggle from "../hooks/PasswordToggle";
+import { phoneCodes } from "../utils/phoneCodes";
+import { Combobox } from "../components/inputs/Combobox";
+import { GetCode } from "../components/auth/GetCode";
+
+const API_URL = import.meta.env.VITE_API_URL;
+
+const loginRequest = async ({ email, password }: IRegisterInputs) => {
+  const response = await fetch(`${API_URL}/login`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ email, password }),
+  });
+
+  if (!response.ok) {
+    const data = await response.json();
+    throw new Error(data.error);
+  }
+
+  return (await response.json()).token;
 };
+
+const Register = () => {
+  const { t } = useTranslation();
+  const { login } = useAuth();
+  const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [activeTab, setActiveTab] = useState<"user" | "company">("user");
+  const [selectedPhoneCode, setSelectedPhoneCode] = useState<string>("995");
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    getValues,
+  } = useForm<IRegisterInputs>();
+
+  const tabButtonClass = (isActive: boolean) =>
+    `w-1/2 rounded-xl px-3 py-2 text-center ${
+      isActive ? "bg-white text-neutral-900 shadow-sm" : ""
+    }`;
+
+  const { mutate } = useMutation(loginRequest, {
+    onSuccess: async (token) => {
+      await login(token);
+      setLoading(false);
+      setErrorMessage(false);
+    },
+    onError: () => {
+      setErrorMessage(true);
+      setLoading(false);
+    },
+  });
+
+  const onSubmit: SubmitHandler<IRegisterInputs> = (data) => {
+    console.log(data, selectedPhoneCode);
+    setLoading(true);
+    mutate(data);
+  };
+
+  const handlePhoneCodeSelect = (value: string) => {
+    setSelectedPhoneCode(value);
+  };
+
+  const password = getValues("password");
+
+  return (
+    <AuthForm title={t("AUTH.register")} onSubmit={handleSubmit(onSubmit)}>
+      <div className="flex h-12 gap-2 rounded-2xl bg-neutral-50 p-1 text-neutral-500">
+        <button
+          type="button"
+          className={tabButtonClass(activeTab === "user")}
+          onClick={() => setActiveTab("user")}
+        >
+          ფიზიკური პირი
+        </button>
+        <button
+          type="button"
+          className={tabButtonClass(activeTab === "company")}
+          onClick={() => setActiveTab("company")}
+        >
+          იურიდიული პირი
+        </button>
+      </div>
+
+      {activeTab == "user" ? (
+        <UserForm register={register} errors={errors} />
+      ) : (
+        <CompanyForm register={register} errors={errors} />
+      )}
+
+      <div className="flex gap-4">
+        <Combobox
+          items={phoneCodes}
+          placeholder="(+995)"
+          searchPlaceholder={t("COMBOBOX.search")}
+          notFoundText={t("COMBOBOX.not_found")}
+          onSelect={handlePhoneCodeSelect}
+          className="min-w-32"
+        />
+
+        <div className="flex-grow">
+          <div className="relative">
+            <Input
+              placeholder={t("AUTH.phone")}
+              type="number"
+              {...register("phone", { required: true })}
+              error={!!errors.phone}
+            />
+            <GetCode />
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div className="relative">
+          <Input
+            placeholder={t("AUTH.password")}
+            type={showPassword ? "text" : "password"}
+            {...register("password", { required: true, minLength: 6 })}
+            error={!!errors.password}
+          />
+          <PasswordToggle
+            show={showPassword}
+            onToggle={() => setShowPassword(!showPassword)}
+          />
+        </div>
+
+        <div className="mt-3 flex items-center gap-3">
+          <FaCircleCheck
+            color={password && password.length >= 6 ? "#74d546" : "#6d6d6d"}
+          />
+          <p className="text-sm font-normal text-neutral-500">
+            {t("AUTH.password_requirement")}
+          </p>
+        </div>
+      </div>
+
+      {errorMessage && <ErrorMessage message={t("AUTH.error")} />}
+
+      <button
+        type="submit"
+        className={`rounded-2xl bg-yellow-400 px-5 py-2.5 text-base font-semibold text-neutral-900 ${loading ? "animate-pulse" : ""} flex max-h-[44px] items-center justify-center`}
+      >
+        {!loading ? (
+          t("AUTH.register")
+        ) : (
+          <Spinner
+            fillColor="fill-orange-500"
+            textColor="text-white"
+            size={30}
+          />
+        )}
+      </button>
+
+      <Link
+        to="/auth/login"
+        className="text-center text-sm font-normal text-neutral-400"
+      >
+        {t("AUTH.have_account")}{" "}
+        <span className="text-orange-500">{t("AUTH.login")}</span>
+      </Link>
+    </AuthForm>
+  );
+};
+
+export default Register;

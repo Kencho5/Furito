@@ -2,20 +2,25 @@
   "HOME": {
     "home": "Home"
   },
-  "LOGIN": {
-    "auth": "Authorization",
+  "AUTH": {
+    "login": "Authorization",
     "email": "Email",
     "password": "Password",
+    "repeat_password": "Repeat password",
     "reset_password": "Reset password",
     "no_account": "Don't have an account?",
+    "have_account": "Have an account?",
     "register": "Register",
     "error": "Email or password is incorrect",
-    "submit": "Log in"
+    "submit": "Log in",
+    "name": "Name",
+    "get_code": "Get code",
+    "phone": "Phone number",
+    "password_requirement": "Must contain at least 6 characters"
   },
   "COMBOBOX": {
-    "select": "Select your country...",
-    "search": "Search your country",
-    "not_found": "No country found."
+    "search": "Search...",
+    "not_found": "Not found."
   },
   "NAV": {
     "upload": "Upload",

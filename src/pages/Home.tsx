@@ -1,6 +1,5 @@
 import { useAuth } from "../auth/AuthContext";
 import { useTranslation } from "react-i18next";
-import { Combobox } from "../components/inputs/Combobox";
 
 export const Home = () => {
   const { loggedIn } = useAuth();
@@ -11,7 +10,6 @@ export const Home = () => {
       <h3 className="mb-4 text-2xl font-bold text-neutral-900">
         {t("HOME.home")}
       </h3>
-      <Combobox />
 
       {loggedIn ? (
         <p className="mb-4 text-lg text-lime-600">Authenticated</p>

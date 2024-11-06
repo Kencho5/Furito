@@ -12,7 +12,7 @@ export function AuthForm({ onSubmit, children, title }: AuthFormProps) {
     >
       <Circles />
 
-      <h1 className="mb-8 text-center text-2xl font-bold sm:text-3xl">
+      <h1 className="mb-4 text-center text-2xl font-bold sm:text-3xl">
         {title}
       </h1>
 
