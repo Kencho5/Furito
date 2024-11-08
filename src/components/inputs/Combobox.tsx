@@ -12,6 +12,7 @@ interface ComboboxItem {
 
 interface ComboboxProps {
   items: ComboboxItem[];
+  defaultValue?: string;
   placeholder?: string;
   searchPlaceholder?: string;
   notFoundText?: string;
@@ -21,6 +22,7 @@ interface ComboboxProps {
 
 export function Combobox({
   items,
+  defaultValue,
   placeholder,
   searchPlaceholder,
   notFoundText,
@@ -28,7 +30,7 @@ export function Combobox({
   onSelect,
 }: ComboboxProps) {
   const [open, setOpen] = useState(false);
-  const [value, setValue] = useState("");
+  const [value, setValue] = useState(defaultValue);
   const [search, setSearch] = useState("");
   const selectedRef = useRef<HTMLButtonElement | null>(null);
 

@@ -21,12 +21,13 @@ const loginRequest = async ({ email, password }: ILoginInputs) => {
     body: JSON.stringify({ email, password }),
   });
 
+  const responseData = await response.json();
+
   if (!response.ok) {
-    const data = await response.json();
-    throw new Error(data.error);
+    throw responseData.error;
   }
 
-  return (await response.json()).token;
+  return responseData.token;
 };
 
 const Login = () => {
@@ -34,7 +35,7 @@ const Login = () => {
   const { login } = useAuth();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
-  const [errorMessage, setErrorMessage] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [showPassword, setShowPassword] = useState(false);
 
   const {
@@ -48,11 +49,11 @@ const Login = () => {
       setLoading(false);
 
       const loggedIn = await login(token);
-      setErrorMessage(false);
+      setErrorMessage(null);
       if (loggedIn) navigate("/profile");
     },
-    onError: () => {
-      setErrorMessage(true);
+    onError: (error: string) => {
+      setErrorMessage(error);
       setLoading(false);
     },
   });
@@ -66,6 +67,7 @@ const Login = () => {
     <AuthForm title={t("AUTH.login")} onSubmit={handleSubmit(onSubmit)}>
       <Input
         placeholder={t("AUTH.email")}
+        type="email"
         {...register("email", { required: true })}
         error={!!errors.email}
       />
@@ -83,7 +85,7 @@ const Login = () => {
         />
       </div>
 
-      {errorMessage && <ErrorMessage message={t("AUTH.error")} />}
+      {errorMessage && <ErrorMessage message={t(errorMessage)} />}
 
       <Link
         to="/auth/reset-password"

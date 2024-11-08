@@ -19,7 +19,7 @@ function AuthLayout() {
   return (
     <AuthProvider>
       <QueryClientProvider client={queryClient}>
-        <div className="mx-4 mt-12 flex select-none flex-col items-center gap-8 sm:mx-6 sm:mt-16">
+        <div className="mx-4 mt-12 flex h-screen select-none flex-col items-center gap-8 sm:mx-6 sm:mt-16">
           <img
             src="/BgPattern.svg"
             className="absolute inset-0 -z-10 h-screen w-screen object-cover"

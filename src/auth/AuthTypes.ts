@@ -1,4 +1,4 @@
-import { UseFormRegister } from "react-hook-form";
+import { UseFormRegister, FieldErrors } from "react-hook-form";
 
 export interface ILoginInputs {
   email: string;
@@ -7,17 +7,17 @@ export interface ILoginInputs {
 
 export interface IRegisterInputs {
   name: string;
-  phone: string;
   email: string;
+  companyCode: string;
+  companyName: string;
+  registrationType: string;
+  phone: string;
+  phoneCode: string;
   password: string;
+  terms: boolean;
 }
 
 export interface IRegisterProps {
   register: UseFormRegister<IRegisterInputs>;
-  errors: {
-    name?: { message?: string };
-    phone?: { message?: string };
-    email?: { message?: string };
-    password?: { message?: string };
-  };
+  errors: FieldErrors<IRegisterInputs>;
 }

@@ -11,12 +11,24 @@
     "no_account": "Don't have an account?",
     "have_account": "Have an account?",
     "register": "Register",
-    "error": "Email or password is incorrect",
     "submit": "Log in",
     "name": "Name",
     "get_code": "Get code",
     "phone": "Phone number",
-    "password_requirement": "Must contain at least 6 characters"
+    "password_requirement": "Must contain at least 6 characters",
+    "agree": "I agree with",
+    "terms": "Terms and Conditions",
+    "company_code": "Company ID",
+    "company_name": "Company name",
+    "service_category": "Service category",
+
+    "ERROR": {
+      "terms_error": "You must agree to the terms",
+      "wrong_credentials": "Wrong credentials",
+      "missing_credentials": "Please fill in the form",
+      "unforseen": "Unforseen error",
+      "email_taken": "Email taken"
+    }
   },
   "COMBOBOX": {
     "search": "Search...",
