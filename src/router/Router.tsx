@@ -44,7 +44,7 @@ export const router = createBrowserRouter([
       {
         path: "register",
         element: (
-          <Suspense fallback={<AuthSkeleton width="550" height="424" />}>
+          <Suspense fallback={<AuthSkeleton width="550" height="648" />}>
             <Register />
           </Suspense>
         ),

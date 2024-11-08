@@ -4,6 +4,8 @@
   },
   "AUTH": {
     "login": "Authorization",
+    "individual": "Individual",
+    "company": "Company",
     "email": "Email",
     "password": "Password",
     "repeat_password": "Repeat password",

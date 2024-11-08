@@ -81,8 +81,8 @@ const Register = () => {
     setLoading(true);
     mutate({
       ...data,
-      phoneCode: selectedPhoneCode,
-      registrationType: activeTab,
+      phone_code: selectedPhoneCode,
+      registration_type: activeTab,
     });
   };
 
@@ -111,14 +111,14 @@ const Register = () => {
           className={tabButtonClass(activeTab === "user")}
           onClick={() => handleTabChange("user")}
         >
-          ფიზიკური პირი
+          {t("AUTH.individual")}
         </button>
         <button
           type="button"
           className={tabButtonClass(activeTab === "company")}
           onClick={() => handleTabChange("company")}
         >
-          იურიდიული პირი
+          {t("AUTH.company")}
         </button>
       </div>
 

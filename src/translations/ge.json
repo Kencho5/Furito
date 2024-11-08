@@ -4,6 +4,8 @@
   },
   "AUTH": {
     "login": "ავტორიზაცია",
+    "individual": "ფიზიკური პირი",
+    "company": "იურიდიული პირი",
     "email": "ელ. ფოსტა",
     "password": "პაროლი",
     "repeat_password": "გაიმეორე პაროლი",

@@ -6,14 +6,16 @@ export interface ILoginInputs {
 }
 
 export interface IRegisterInputs {
-  name: string;
   email: string;
-  companyCode: string;
-  companyName: string;
-  registrationType: string;
+  registration_type: string;
   phone: string;
-  phoneCode: string;
+  phone_code: string;
   password: string;
+
+  // OPTIONAL
+  name: string;
+  company_code: string;
+  company_name: string;
   terms: boolean;
 }
 

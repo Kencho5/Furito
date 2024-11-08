@@ -11,14 +11,14 @@ export const CompanyForm = ({ register, errors }: IRegisterProps) => {
       <div className="flex gap-4">
         <Input
           placeholder={t("AUTH.company_code")}
-          {...register("companyCode", { required: true })}
-          error={!!errors.companyCode}
+          {...register("company_code", { required: true })}
+          error={!!errors.company_code}
           className="w-1/2"
         />
         <Input
           placeholder={t("AUTH.company_name")}
-          {...register("companyName", { required: true })}
-          error={!!errors.companyName}
+          {...register("company_name", { required: true })}
+          error={!!errors.company_name}
           className="w-1/2"
         />
       </div>
