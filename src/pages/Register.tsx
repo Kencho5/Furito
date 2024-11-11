@@ -57,7 +57,7 @@ const Register = () => {
   } = useForm<IRegisterInputs>();
 
   const tabButtonClass = (isActive: boolean) =>
-    `w-1/2 rounded-xl px-3 py-2 text-center ${
+    `w-1/2 rounded-xl px-2 sm:px-3 py-2 text-center ${
       isActive ? "bg-white text-neutral-900 shadow-sm" : ""
     }`;
 
@@ -108,14 +108,14 @@ const Register = () => {
       <div className="flex h-12 gap-2 rounded-2xl bg-neutral-50 p-1 text-neutral-500">
         <button
           type="button"
-          className={tabButtonClass(activeTab === "user")}
+          className={`text-sm sm:text-base ${tabButtonClass(activeTab === "user")}`}
           onClick={() => handleTabChange("user")}
         >
           {t("AUTH.individual")}
         </button>
         <button
           type="button"
-          className={tabButtonClass(activeTab === "company")}
+          className={`text-sm sm:text-base ${tabButtonClass(activeTab === "company")}`}
           onClick={() => handleTabChange("company")}
         >
           {t("AUTH.company")}
@@ -128,7 +128,7 @@ const Register = () => {
         <CompanyForm register={register} errors={errors} />
       )}
 
-      <div className="flex gap-4">
+      <div className="flex flex-col gap-4 sm:flex-row">
         <Combobox
           items={phoneCodes}
           defaultValue="995"

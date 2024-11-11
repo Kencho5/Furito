@@ -9,7 +9,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
   ({ error, className = "w-full", ...props }, ref) => {
     const styles = [
       // Base styles
-      "h-11 rounded-2xl border px-3.5 py-2.5 outline-none",
+      "h-11 rounded-2xl border px-3.5 py-2.5 outline-none text-sm sm:text-base",
       // Placeholder styles
       "placeholder:font-normal placeholder:text-neutral-400",
       // Error/Focus styles

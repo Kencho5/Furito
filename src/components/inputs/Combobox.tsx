@@ -59,7 +59,7 @@ export function Combobox({
       <div className={`relative ${className}`}>
         <button
           type="button"
-          className="flex w-full items-center justify-between rounded-2xl border border-neutral-200 px-3 py-2 text-base font-normal"
+          className="flex w-full items-center justify-between rounded-2xl border border-neutral-200 px-3 py-2 text-sm font-normal sm:text-base"
           onClick={() => setOpen(!open)}
           aria-expanded={open}
         >
@@ -70,7 +70,7 @@ export function Combobox({
         </button>
 
         {open && (
-          <div className="absolute z-10 mt-2 w-full rounded-2xl border border-neutral-200 bg-white shadow-sm">
+          <div className="absolute z-10 mt-2 w-full rounded-2xl border border-neutral-200 bg-white text-sm shadow-sm sm:text-base">
             <div className="flex items-center justify-between border-b border-neutral-300">
               <FiSearch size={18} className="ml-3 flex-shrink-0" />
               <input
