@@ -24,6 +24,13 @@
     "company_name": "Company name",
     "service_category": "Service category",
 
+    "SERVICES": {
+      "veterinary": "Veterinary",
+      "food": "Food and accessories",
+      "training": "Training",
+      "grooming": "Grooming"
+    },
+
     "ERROR": {
       "terms_error": "You must agree to the terms",
       "wrong_credentials": "Wrong credentials",

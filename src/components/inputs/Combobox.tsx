@@ -18,6 +18,7 @@ interface ComboboxProps {
   notFoundText?: string;
   className?: string;
   onSelect?: (value: string) => void;
+  error?: boolean;
 }
 
 export function Combobox({
@@ -28,6 +29,7 @@ export function Combobox({
   notFoundText,
   className,
   onSelect,
+  error,
 }: ComboboxProps) {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(defaultValue);
@@ -59,7 +61,9 @@ export function Combobox({
       <div className={`relative ${className}`}>
         <button
           type="button"
-          className="flex w-full items-center justify-between rounded-2xl border border-neutral-200 px-3 py-2 text-sm font-normal sm:text-base"
+          className={`flex w-full items-center justify-between rounded-2xl border px-3 py-2 text-sm font-normal text-neutral-400 sm:text-base ${
+            error ? "border-orange-500" : "border-neutral-200"
+          } ${value && "text-neutral-900"} `}
           onClick={() => setOpen(!open)}
           aria-expanded={open}
         >
@@ -103,13 +107,13 @@ export function Combobox({
                     type="button"
                     key={item.value}
                     ref={value === item.value ? selectedRef : null}
-                    className={`mx-auto mt-1 flex w-full items-center rounded-md px-2 py-2 text-center transition-colors hover:bg-neutral-100 ${
-                      value === item.value ? "bg-neutral-100" : ""
+                    className={`mx-auto mt-1 flex w-full items-center rounded-md px-2 py-2 text-center font-normal transition-colors hover:bg-neutral-100 ${
+                      value === item.value ? "bg-neutral-100 font-medium" : ""
                     }`}
                     onClick={() => handleSelect(item.value)}
                   >
                     <span className="mr-2 h-4 w-4">
-                      {value === item.value && <FaCheck />}
+                      {value === item.value && <FaCheck color="#FD590D" />}
                     </span>
                     {item.label}
                   </button>

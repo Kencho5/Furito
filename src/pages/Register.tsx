@@ -46,7 +46,6 @@ const Register = () => {
   const [activeTab, setActiveTab] = useState<string>(
     () => localStorage.getItem("authTab") || "user",
   );
-  const [selectedPhoneCode, setSelectedPhoneCode] = useState<string>("995");
 
   const {
     register,
@@ -54,7 +53,15 @@ const Register = () => {
     formState: { errors },
     watch,
     reset,
-  } = useForm<IRegisterInputs>();
+    setValue,
+  } = useForm<IRegisterInputs>({
+    defaultValues: {
+      phone_code: "995",
+      registration_type: activeTab,
+      service_category: "",
+    },
+  });
+  register("service_category", { required: true });
 
   const tabButtonClass = (isActive: boolean) =>
     `w-1/2 rounded-xl px-2 sm:px-3 py-2 text-center ${
@@ -79,21 +86,16 @@ const Register = () => {
       return;
     }
     setLoading(true);
-    mutate({
-      ...data,
-      phone_code: selectedPhoneCode,
-      registration_type: activeTab,
-    });
+    mutate(data);
   };
 
   const handleTabChange = (tab: string) => {
     localStorage.setItem("authTab", tab);
     setActiveTab(tab);
-    reset();
-  };
+    setChecked(false);
 
-  const handlePhoneCodeSelect = (value: string) => {
-    setSelectedPhoneCode(value);
+    reset();
+    setValue?.("registration_type", tab);
   };
 
   const handleTerms = () => {
@@ -125,7 +127,7 @@ const Register = () => {
       {activeTab == "user" ? (
         <UserForm register={register} errors={errors} />
       ) : (
-        <CompanyForm register={register} errors={errors} />
+        <CompanyForm register={register} errors={errors} setValue={setValue} />
       )}
 
       <div className="flex flex-col gap-4 sm:flex-row">
@@ -135,7 +137,7 @@ const Register = () => {
           placeholder="(+995)"
           searchPlaceholder={t("COMBOBOX.search")}
           notFoundText={t("COMBOBOX.not_found")}
-          onSelect={handlePhoneCodeSelect}
+          onSelect={(value) => setValue?.("phone_code", value)}
           className="min-w-32"
         />
 

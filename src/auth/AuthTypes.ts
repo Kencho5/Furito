@@ -1,4 +1,4 @@
-import { UseFormRegister, FieldErrors } from "react-hook-form";
+import { UseFormRegister, FieldErrors, UseFormSetValue } from "react-hook-form";
 
 export interface ILoginInputs {
   email: string;
@@ -17,9 +17,11 @@ export interface IRegisterInputs {
   company_code: string;
   company_name: string;
   terms: boolean;
+  service_category: string;
 }
 
 export interface IRegisterProps {
   register: UseFormRegister<IRegisterInputs>;
   errors: FieldErrors<IRegisterInputs>;
+  setValue?: UseFormSetValue<IRegisterInputs>;
 }
