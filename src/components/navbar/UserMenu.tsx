@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import OutsideClickHandler from "../../hooks/OutsideClick";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import { useAuth } from "../../auth/AuthContext";
 
 import { CgProfile } from "react-icons/cg";

@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { Navigate } from "react-router-dom";
+import { Navigate } from "react-router";
 import { useQuery } from "react-query";
 import { useAuth } from "../auth/AuthContext";
 

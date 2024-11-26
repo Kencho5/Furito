@@ -1,8 +1,8 @@
 import AuthHeader from "../components/auth/AuthHeader";
 import { AuthProvider } from "../auth/AuthContext";
 import { QueryClient, QueryClientProvider } from "react-query";
-import { Outlet } from "react-router-dom";
-import { useNavigation } from "react-router-dom";
+import { Outlet } from "react-router";
+import { useNavigation } from "react-router";
 import TopBarProgress from "react-topbar-progress-indicator";
 
 const queryClient = new QueryClient({

@@ -1,5 +1,5 @@
 import LanguageSelector from "../navbar/LanguageSelector";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 
 function AuthHeader() {
   return (
