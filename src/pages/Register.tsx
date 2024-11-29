@@ -18,23 +18,7 @@ import PasswordToggle from "../hooks/PasswordToggle";
 import { phoneCodes } from "../utils/phoneCodes";
 import { Combobox } from "../components/inputs/Combobox";
 import { GetCode } from "../components/auth/GetCode";
-
-const API_URL = import.meta.env.VITE_API_URL;
-
-const registerRequest = async (data: IRegisterInputs) => {
-  const response = await fetch(`${API_URL}/register`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ ...data }),
-  });
-  const responseData = await response.json();
-
-  if (!response.ok) {
-    throw responseData.error;
-  }
-
-  return responseData.token;
-};
+import { registerRequest } from "../auth/registerRequest";
 
 const Register = () => {
   const { t } = useTranslation();
@@ -60,8 +44,12 @@ const Register = () => {
       registration_type: activeTab,
       service_category: "",
     },
+    mode: "onSubmit",
   });
-  register("service_category", { required: true });
+
+  register("service_category", {
+    required: activeTab === "company",
+  });
 
   const tabButtonClass = (isActive: boolean) =>
     `w-1/2 rounded-xl px-2 sm:px-3 py-2 text-center ${
